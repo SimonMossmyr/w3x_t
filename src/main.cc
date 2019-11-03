@@ -1,4 +1,4 @@
-#include "W3JSON.h"
+#include "w3x_t.h"
 
 #define DEFAULT_CHAR_BUFFER_SIZE 512
 
@@ -6,42 +6,18 @@
 
 using namespace std;
 
-int read_and_interpret_w3x_header(char* archive_file_name, char* out_dir) {
+int read_and_interpret_w3x_header(char* archive_file_name) {
     ifstream ifs;
     ifs.open(archive_file_name);
     if (!ifs.good()) {
         return 0;
     }
 
-    /** File ID  */
-    char file_id[4 + 1];
-    ifs.read(file_id, 4);
-    file_id[4] = '\0';
+    char header_content[513];
+    ifs.read(header_content, 512);
+    header_content[512] = '\0';
 
-    ifs.ignore(4);
-
-    /** Map name */
-    char map_name[128];
-    ifs.getline(map_name, 128, '\0');
-
-    /** Map flags */
-    uint32_t map_flags_raw_binary = 0;
-    ifs.read(reinterpret_cast<char *>(&map_flags_raw_binary), sizeof(map_flags_raw_binary)); // black magic
-    int map_flags[13];
-    for (int i = 32-13; i < 32; i++) {
-        map_flags[i-(32-13)] = (map_flags_raw_binary >> i-(32-13)) & 1;
-    }
-
-    /** Max players */
-    uint32_t max_players = 0;
-    ifs.read(reinterpret_cast<char*>(&max_players), sizeof(max_players));
-    ifs.close();
-
-    string json = header_to_json(string(file_id), string(map_name), map_flags, max_players);
-    ofstream ofs;
-    ofs.open(string(out_dir) + "header.json");
-    ofs << json << endl;
-    ofs.close();
+    header_type header = header_to_struct(string(header_content, 512));
 
     return 1;
 }
@@ -49,17 +25,16 @@ int read_and_interpret_w3x_header(char* archive_file_name, char* out_dir) {
 int main(int argc, char* argv[])
 {
 
-    if (argc < 3) {
-        cout << argv[0] << " Version " << W3Plus_VERSION_MAJOR << "." << W3Plus_VERSION_MINOR << endl;
-        cout << "Usage: " << argv[0] << " <w3x-file> <output-directory>" << endl;
+    if (argc < 2) {
+        cout << argv[0] << " Version " << W3JSON_VERSION_MAJOR << "." << W3JSON_VERSION_MINOR << "." << W3JSON_VERSION_PATCH << endl;
+        cout << "Usage: " << argv[0] << " <w3x-file>" << endl;
         return 1;
     }
 
     char* archive_file_name = argv[1];
-    char* output_directory = argv[2];
 
     /** Read W3X Header */
-    if(!read_and_interpret_w3x_header(archive_file_name, output_directory)) {
+    if(!read_and_interpret_w3x_header(archive_file_name)) {
         return error("Could not read archive header.", 1);
     }
 
@@ -128,16 +103,9 @@ int main(int argc, char* argv[])
         file_contents[size_of_file] = '\0';
         string contents = string(file_contents, number_of_chars_actually_read);
 
-        string file_json;
-        string out_file_name;
         if (file_name.compare("war3map.w3e") == 0) {
-            file_json = w3e_to_json(contents);
-            out_file_name = "w3e.json";
+            w3e_type w3e = w3e_to_json(contents);
         }
-        ofstream ofs;
-        ofs.open(string(output_directory) + out_file_name);
-        ofs << file_json;
-        ofs.close();
     }
 
 

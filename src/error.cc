@@ -1,4 +1,4 @@
-#include "W3JSON.h"
+#include "w3x_t.h"
 
 void warning(string message) {
     cout << "\033[1;33mWarning\033[0m: " << message << " (Code " << GetLastError() << ")" << endl;

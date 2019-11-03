@@ -3,18 +3,14 @@
 #include <bitset>
 #include <sstream>
 #include <string>
-#include <rapidjson/document.h>
-#include <rapidjson/prettywriter.h>
-#include <rapidjson/stringbuffer.h>
 #include <StormLib.h>
 
-using namespace std;
-using namespace rapidjson;
+#include "structs.h"
 
 /** Version (semantic) */
-#define W3Plus_VERSION_MAJOR 0
-#define W3Plus_VERSION_MINOR 0
-#define W3Plus_VERSION_PATCH 0
+#define W3JSON_VERSION_MAJOR 0
+#define W3JSON_VERSION_MINOR 0
+#define W3JSON_VERSION_PATCH 0
 
 /** Header keys */
 #define HEADER_FLAG_HIDE_MINIMAP_IN_PREVIEW_SCREENS 0
@@ -36,9 +32,13 @@ void warning(string message);
 int error(string message);
 int error(string message, int error_code);
 
+/** Converters */
+
+header_type header_to_struct(string header_content);
+
+
 /** JSON converters */
-string header_to_json(string file_id, string map_name, int map_flags[], uint32_t max_players);
-string w3e_to_json(string w3e_contents);
+w3e_type w3e_to_json(string w3e_contents);
 
 /** main */
 int read_and_interpret_w3x_header(char* archive_file_name);

@@ -14,25 +14,24 @@
 
 cmake_minimum_required(VERSION 3.10)
 
-project(W3JSON VERSION 0.0.0)
+project(w3x_t VERSION 0.0.0)
 
 set(SRC_FILES
   src/error.cc
-  src/map_header.cc
+  src/header.cc
   src/w3e.cc
 )
 
-add_executable(W3JSON
+add_executable(w3x_t
   src/main.cc
   "${SRC_FILES}"
 )
 
-target_include_directories(W3JSON PUBLIC
+target_include_directories(w3x_t PUBLIC
   "${PROJECT_BINARY_DIR}"
 )
 
-find_package(RapidJSON REQUIRED)
-target_link_libraries(W3JSON
+target_link_libraries(w3x_t
   storm
   z
   bz2
