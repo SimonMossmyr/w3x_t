@@ -17,10 +17,11 @@ cmake_minimum_required(VERSION 3.10)
 project(w3x_t VERSION 0.0.0)
 
 set(SRC_FILES
-  src/error.cc
+  src/utils.cc
   src/header.cc
   src/w3e.cc
   src/shd.cc
+  src/wpm.cc
 )
 
 add_executable(w3x_t

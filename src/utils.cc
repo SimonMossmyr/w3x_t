@@ -1,5 +1,23 @@
 #include "w3x_t.h"
 
+int read_int(stringstream* ss) {
+    int i;
+    ss->read(reinterpret_cast<char *>(&i), sizeof(i));
+    return i;
+}
+
+short read_short(stringstream* ss) {
+    short i;
+    ss->read(reinterpret_cast<char *>(&i), sizeof(i));
+    return i;
+}
+
+char read_char(stringstream* ss) {
+    char i;
+    ss->read(reinterpret_cast<char *>(&i), sizeof(i));
+    return i;
+}
+
 void warning(string message) {
     cout << "\033[1;33mWarning\033[0m: " << message << " (Code " << GetLastError() << ")" << endl;
 }

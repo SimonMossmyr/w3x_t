@@ -58,3 +58,19 @@ struct w3e_type {
 struct shd_type {
     vector<bool> shadow;
 };
+
+struct wpm_type {
+    string file_id;
+    int format_version;
+    int path_map_width;
+    int path_map_height;
+    struct flag_type {
+        bool walk;
+        bool fly;
+        bool build;
+        bool blight;
+        bool water;
+        bool unknown;
+    };
+    vector<flag_type> flag;
+};
