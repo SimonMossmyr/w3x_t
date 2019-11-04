@@ -22,8 +22,7 @@ header_type header_to_struct(string header_contents) {
     header.map_name = map_name;
 
     /** Map flags */
-    uint32_t map_flags_raw_binary = -1;
-    ss.read(reinterpret_cast<char *>(&map_flags_raw_binary), sizeof(map_flags_raw_binary)); // black magic
+    uint32_t map_flags_raw_binary = read_int(&ss);
 
     header.flag.hide_minimap_in_preview_screens = (bool)map_flags_raw_binary;
     header.flag.modify_ally_priorities = (bool)map_flags_raw_binary;

@@ -10,9 +10,6 @@ shd_type shd_to_struct(string contents, int map_width, int map_height) {
     for (int i = 0; i < number_of_pixels; i++) {
         char c;
         ss.get(c);
-        if (c != (char)0 && c != (char)0xFF) {
-            cout << "error: " << c << endl;
-        }
         shd.shadow[i] = (bool)c;
     }
 

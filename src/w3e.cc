@@ -90,47 +90,22 @@ w3e_type w3e_to_struct(string contents) {
     int number_of_tilepoints = (map_width_plus_one - 1)*(map_height_plus_one - 1);
     w3e.tilepoint.resize(number_of_tilepoints);
     for (int i = 0; i < number_of_tilepoints; i++) {
-        short ground_height;
-        short water_level;
-        short boundary_flag_1;
-        short ramp_flag;
-        short blight_flag;
-        short water_flag;
-        short boundary_flag_2;
-        char ground_texture_type;
-        char texture_detail;
-        char cliff_texture_type;
-        char layer_height;
+        w3e.tilepoint[i].ground_height = read_short(&ss);
 
-        ss.read(reinterpret_cast<char *>(&ground_height), sizeof(ground_height));
-        w3e.tilepoint[i].ground_height = ground_height;
-
-        short water_level_and_boundary_flag;
-        ss.read(reinterpret_cast<char *>(&water_level_and_boundary_flag), sizeof(water_level_and_boundary_flag));
-        water_level = water_level_and_boundary_flag & 0x7FFF; // get lowest 15 bits
-        w3e.tilepoint[i].water_level = water_level;
-        boundary_flag_1 = (water_level_and_boundary_flag & 0x8000) >> 15; // get highest bit
-        w3e.tilepoint[i].flag.boundary_1 = (bool)boundary_flag_1;
-
-        char flags;
-        ss.read(reinterpret_cast<char *>(&flags), sizeof(flags));
-        ramp_flag = flags & 0x1;
-        w3e.tilepoint[i].flag.ramp = (bool)ramp_flag;
-        blight_flag = (flags & 0x2) >> 1;
-        w3e.tilepoint[i].flag.blight = (bool)blight_flag;
-        water_flag = (flags & 0x4) >> 2;
-        w3e.tilepoint[i].flag.water = (bool)water_flag;
-        boundary_flag_2 = (flags & 0x8) >> 3;
-        w3e.tilepoint[i].flag.boundary_2 = (bool)boundary_flag_2;
-
-        ss.read(reinterpret_cast<char *>(&ground_texture_type), sizeof(ground_texture_type));
-        w3e.tilepoint[i].ground_texture_type = (int)ground_texture_type;
-        ss.read(reinterpret_cast<char *>(&texture_detail), sizeof(texture_detail));
-        w3e.tilepoint[i].texture_detail = (int)texture_detail;
-        ss.read(reinterpret_cast<char *>(&cliff_texture_type), sizeof(cliff_texture_type));
-        w3e.tilepoint[i].cliff_texture_type = (int)cliff_texture_type;
-        ss.read(reinterpret_cast<char *>(&layer_height), sizeof(layer_height));
-        w3e.tilepoint[i].layer_height = (int)layer_height;
+        short water_level_and_boundary_flag = read_short(&ss);
+        w3e.tilepoint[i].water_level = water_level_and_boundary_flag & 0x7FFF; // get lowest 15 bits
+        w3e.tilepoint[i].flag.boundary_1 = (bool)(water_level_and_boundary_flag & 0x8000); // get highest bit;
+        
+        char flags = read_char(&ss);
+        w3e.tilepoint[i].flag.ramp = (bool)(flags & 0x1);
+        w3e.tilepoint[i].flag.blight = (bool)(flags & 0x2);
+        w3e.tilepoint[i].flag.water = (bool)(flags & 0x4);
+        w3e.tilepoint[i].flag.boundary_2 = (bool)(flags & 0x8);
+        
+        char ground_texture_type = (int)read_char(&ss);
+        char texture_detail = (int)read_char(&ss);
+        char cliff_texture_type = (int)read_char(&ss);
+        char layer_height = (int)read_char(&ss);
     }
 
     return w3e;

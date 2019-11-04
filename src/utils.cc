@@ -14,7 +14,7 @@ short read_short(stringstream* ss) {
 
 char read_char(stringstream* ss) {
     char i;
-    ss->read(reinterpret_cast<char *>(&i), sizeof(i));
+    ss->get(i);
     return i;
 }
 
