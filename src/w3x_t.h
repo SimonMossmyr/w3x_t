@@ -26,6 +26,7 @@ header_type header_to_struct(string header_content);
 w3e_type w3e_to_struct(string contents);
 shd_type shd_to_struct(string contents, int map_width, int map_height);
 wpm_type wpm_to_struct(string contents);
+w3do_type read_w3do_from_stringstream(stringstream& ss);
 doo_type doo_to_struct(string contents);
 
 /** main */
