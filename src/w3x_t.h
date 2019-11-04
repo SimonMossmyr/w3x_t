@@ -14,6 +14,7 @@
 
 /** Utils */
 int read_int(stringstream* ss);
+float read_float(stringstream* ss);
 short read_short(stringstream* ss);
 char read_char(stringstream* ss);
 void warning(string message);
