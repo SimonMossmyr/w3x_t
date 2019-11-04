@@ -20,7 +20,7 @@ struct header_type {
         bool map_properties_menu_opened_at_least_once_since_map_creation;
         bool show_water_waves_on_cliff_shores;
         bool show_water_waves_on_rolling_shores;
-    } flag;
+    } flags;
     int max_players;
 };
 
@@ -52,7 +52,7 @@ struct w3e_type {
         int cliff_texture_type;
         int layer_height;
     };
-    vector<tilepoint_type> tilepoint;
+    vector<tilepoint_type> tilepoints;
 };
 
 struct shd_type {
@@ -64,7 +64,7 @@ struct wpm_type {
     int format_version;
     int path_map_width;
     int path_map_height;
-    struct flag_type {
+    struct path_pixel_type {
         bool walk;
         bool fly;
         bool build;
@@ -72,5 +72,39 @@ struct wpm_type {
         bool water;
         bool unknown;
     };
-    vector<flag_type> flag;
+    vector<path_pixel_type> path_pixels;
+};
+
+struct doo_type {
+    string file_id;
+    int format_version;
+    int format_sub_version;
+    int number_of_doodads;
+    struct doodad_type {
+        string doodad_type_id;
+        int variation;
+        float position_x;
+        float position_y;
+        float position_z;
+        float rotation_angle;
+        float scale_x;
+        float scale_y;
+        float scale_z;
+        bool visible;
+        bool solid;
+        short current_hit_points_percent;
+        int item_table_id;
+        int number_of_item_sets_dropped;
+        int doodad_id;
+    };
+    vector<doodad_type> doodads;
+    int special_doodads_format_version;
+    int number_of_special_doodads;
+    struct special_doodad_type {
+        string special_doodad_type_id;
+        int position_z;
+        int position_x;
+        int position_y;
+    };
+    vector<special_doodad_type> special_doodads;
 };

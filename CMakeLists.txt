@@ -1,17 +1,3 @@
-# Clone StormLib and RapidJSON locally
-# Then build and install the libraries
-# 
-# $ cd StormLib/build
-# $ cmake ..
-# $ make
-# $ make install
-# $ cd rapidjson/build
-# $ cmake ..
-# $ make
-# $ make install
-#
-# This should make CMake find and link the two libraries
-
 cmake_minimum_required(VERSION 3.10)
 
 project(w3x_t VERSION 0.0.0)
@@ -22,6 +8,7 @@ set(SRC_FILES
   src/w3e.cc
   src/shd.cc
   src/wpm.cc
+  src/doo.cc
 )
 
 add_executable(w3x_t

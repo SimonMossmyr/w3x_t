@@ -101,6 +101,7 @@ int main(int argc, char* argv[])
     w3e_type w3e = w3e_to_struct(get_contents_from_mpq_file(hMpq, "war3map.w3e"));
     shd_type shd = shd_to_struct(get_contents_from_mpq_file(hMpq, "war3map.shd"), w3e.map_width_plus_one - 1, w3e.map_height_plus_one - 1);
     wpm_type wpm = wpm_to_struct(get_contents_from_mpq_file(hMpq, "war3map.wpm"));
+    doo_type doo = doo_to_struct(get_contents_from_mpq_file(hMpq, "war3map.doo"));
 
     return 0;
 }
