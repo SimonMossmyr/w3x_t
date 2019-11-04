@@ -18,13 +18,11 @@ int error(string message);
 int error(string message, int error_code);
 
 /** Converters */
-
 header_type header_to_struct(string header_content);
-
-
-/** JSON converters */
-w3e_type w3e_to_json(string w3e_contents);
+w3e_type w3e_to_struct(string contents);
+shd_type shd_to_struct(string contents, int map_width, int map_height);
 
 /** main */
 int read_and_interpret_w3x_header(char* archive_file_name);
+string get_contents_from_mpq_file(HANDLE hMpq, string file_name);
 int main(int argc, char* argv[]);

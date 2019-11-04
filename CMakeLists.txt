@@ -20,6 +20,7 @@ set(SRC_FILES
   src/error.cc
   src/header.cc
   src/w3e.cc
+  src/shd.cc
 )
 
 add_executable(w3x_t

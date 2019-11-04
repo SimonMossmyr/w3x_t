@@ -1,9 +1,11 @@
 #include "w3x_t.h"
 
-w3e_type w3e_to_json(string w3e_contents) {
+w3e_type w3e_to_struct(string contents) {
 
-    stringstream ss(w3e_contents);
+    stringstream ss(contents);
     w3e_type w3e;
+
+    int i = 0;
 
     /** File ID */
     char file_id[4 + 1];
@@ -28,7 +30,7 @@ w3e_type w3e_to_json(string w3e_contents) {
     uint32_t custom_tileset = -1;
     ss.read(reinterpret_cast<char *>(&custom_tileset), sizeof(custom_tileset));
 
-    w3e.custom_tileset = custom_tileset;
+    w3e.custom_tileset = (bool)custom_tileset;
 
     /** Number of ground tilesets */
     uint32_t number_of_ground_tilesets_used = -1;
@@ -64,7 +66,7 @@ w3e_type w3e_to_json(string w3e_contents) {
     uint32_t map_width_plus_one = -1;
     ss.read(reinterpret_cast<char *>(&map_width_plus_one), sizeof(map_width_plus_one));
 
-    w3e.map_height_plus_one = map_width_plus_one;
+    w3e.map_width_plus_one = map_width_plus_one;
 
     /** Map height */
     uint32_t map_height_plus_one = -1;
@@ -108,18 +110,18 @@ w3e_type w3e_to_json(string w3e_contents) {
         water_level = water_level_and_boundary_flag & 0x7FFF; // get lowest 15 bits
         w3e.tilepoint[i].water_level = water_level;
         boundary_flag_1 = (water_level_and_boundary_flag & 0x8000) >> 15; // get highest bit
-        w3e.tilepoint[i].flag.boundary_1 = boundary_flag_1;
+        w3e.tilepoint[i].flag.boundary_1 = (bool)boundary_flag_1;
 
         char flags;
         ss.read(reinterpret_cast<char *>(&flags), sizeof(flags));
         ramp_flag = flags & 0x1;
-        w3e.tilepoint[i].flag.ramp = ramp_flag;
+        w3e.tilepoint[i].flag.ramp = (bool)ramp_flag;
         blight_flag = (flags & 0x2) >> 1;
-        w3e.tilepoint[i].flag.blight = blight_flag;
+        w3e.tilepoint[i].flag.blight = (bool)blight_flag;
         water_flag = (flags & 0x4) >> 2;
-        w3e.tilepoint[i].flag.water = water_flag;
+        w3e.tilepoint[i].flag.water = (bool)water_flag;
         boundary_flag_2 = (flags & 0x8) >> 3;
-        w3e.tilepoint[i].flag.boundary_2 = boundary_flag_2;
+        w3e.tilepoint[i].flag.boundary_2 = (bool)boundary_flag_2;
 
         ss.read(reinterpret_cast<char *>(&ground_texture_type), sizeof(ground_texture_type));
         w3e.tilepoint[i].ground_texture_type = (int)ground_texture_type;

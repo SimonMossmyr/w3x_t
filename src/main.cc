@@ -22,6 +22,30 @@ int read_and_interpret_w3x_header(char* archive_file_name) {
     return 1;
 }
 
+string get_contents_from_mpq_file(HANDLE hMpq, string file_name) {
+    HANDLE file_handle;
+    if (!SFileOpenFileEx(hMpq, file_name.c_str(), SFILE_OPEN_FROM_MPQ, &file_handle)) {
+        error("File does not exist.");
+        exit(1);
+    }
+
+    DWORD size_of_file_high = -1;
+    DWORD size_of_file = SFileGetFileSize(file_handle, &size_of_file_high);
+    if (size_of_file == SFILE_INVALID_SIZE || size_of_file_high != 0) {
+        error("Size of one of the files could not be determined.");
+        exit(1);
+    }
+
+    char file_contents[size_of_file + 1];
+    DWORD number_of_chars_actually_read = 0;
+    if (!SFileReadFile(file_handle, &file_contents, size_of_file, &number_of_chars_actually_read, NULL)) {
+        error("Could not read contents of file.");
+        exit(1);
+    }
+    file_contents[size_of_file] = '\0';
+    return string(file_contents, number_of_chars_actually_read);
+}
+
 int main(int argc, char* argv[])
 {
 
@@ -74,41 +98,8 @@ int main(int argc, char* argv[])
         }
     }
 
-    /** Iterate through the listfile */
-    string files[number_of_files];
-    stringstream listfile_ss(listfile_contents);
-    string filename_with_carriage_return;
-    for (int i = 0; i < number_of_files; i++) {
-        getline(listfile_ss, filename_with_carriage_return, '\n');
-        stringstream filename_ss(filename_with_carriage_return);
-        string file_name;
-        getline(filename_ss, file_name, '\r');
-
-        HANDLE file_handle = NULL;
-        if (!SFileOpenFileEx(hMpq, file_name.c_str(), SFILE_OPEN_FROM_MPQ, &file_handle)) {
-            return error("One of the files listed in the listfile could not be opened.");
-        }
-
-        DWORD size_of_file_high = -1;
-        DWORD size_of_file = SFileGetFileSize(file_handle, &size_of_file_high);
-        if (size_of_file == SFILE_INVALID_SIZE || size_of_file_high != 0) {
-            return error("Size of one of the files could not be determined.");
-        }
-
-        char file_contents[size_of_file + 1];
-        number_of_chars_actually_read = 0;
-        if (!SFileReadFile(file_handle, &file_contents, size_of_file, &number_of_chars_actually_read, NULL)) {
-            return error("Could not read contents of file.");
-        }
-        file_contents[size_of_file] = '\0';
-        string contents = string(file_contents, number_of_chars_actually_read);
-
-        if (file_name.compare("war3map.w3e") == 0) {
-            w3e_type w3e = w3e_to_json(contents);
-        }
-    }
-
-
+    w3e_type w3e = w3e_to_struct(get_contents_from_mpq_file(hMpq, "war3map.w3e"));
+    shd_type shd = shd_to_struct(get_contents_from_mpq_file(hMpq, "war3map.shd"), w3e.map_width_plus_one - 1, w3e.map_height_plus_one - 1);
 
     return 0;
 }
