@@ -81,7 +81,7 @@ struct doo_type {
     int format_sub_version;
     int number_of_doodads;
     struct doodad_type {
-        string doodad_type_id;
+        string type_id;
         int variation;
         float position_x;
         float position_y;
@@ -92,19 +92,43 @@ struct doo_type {
         float scale_z;
         bool visible;
         bool solid;
-        short current_hit_points_percent;
+        char current_hit_points_percent;
         int item_table_id;
         int number_of_item_sets_dropped;
-        int doodad_id;
+        int id;
     };
     vector<doodad_type> doodads;
+
     int special_doodads_format_version;
     int number_of_special_doodads;
     struct special_doodad_type {
-        string special_doodad_type_id;
+        string type_id;
         int position_z;
         int position_x;
         int position_y;
     };
     vector<special_doodad_type> special_doodads;
+
+    string tree_file_id;
+    int tree_format_version;
+    int tree_format_sub_version;
+    int number_of_trees;
+    struct tree_type {
+        string type_id;
+        int variation;
+        float position_x;
+        float position_y;
+        float position_z;
+        float rotation_angle;
+        float scale_x;
+        float scale_y;
+        float scale_z;
+        bool visible;
+        bool solid;
+        char current_hit_points_percent;
+        int item_table_id;
+        int number_of_item_sets_dropped;
+        int id;
+    };
+    vector<doodad_type> trees;
 };
