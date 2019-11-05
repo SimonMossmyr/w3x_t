@@ -43,9 +43,9 @@ struct w3e_type {
     int format_version;
     byte_type main_tileset;
     bool custom_tileset;
-    int number_of_ground_tilesets;
+    int n_ground_tilesets;
     vector<string> ground_tilesets;
-    int number_of_cliff_tilesets;
+    int n_cliff_tilesets;
     vector<string> cliff_tilesets;
     int map_width_plus_one;
     int map_height_plus_one;
@@ -108,7 +108,7 @@ struct w3do_type {
     string file_id;
     int format_version;
     int format_sub_version;
-    int number_of_doodads;
+    int n_doodads;
     struct doodad_type {
         string type_id;
         int variation;
@@ -119,7 +119,7 @@ struct w3do_type {
         bool solid;
         byte_type current_hit_points_percent;
         int item_table_id;
-        int number_of_item_sets_dropped;
+        int n_item_sets_dropped;
         int id;
     };
     vector<doodad_type> doodads;
@@ -129,7 +129,7 @@ struct doo_type {
     w3do_type doodads;
 
     int special_doodads_format_version;
-    int number_of_special_doodads;
+    int n_special_doodads;
     struct special_doodad_type {
         string type_id;
         position_type position;
@@ -143,7 +143,7 @@ struct units_doo_type {
     string file_id;
     int file_version;
     int file_sub_version;
-    int number_of_units;
+    int n_units;
     struct unit_type {
         string type_id;
         int variation;
@@ -158,7 +158,7 @@ struct units_doo_type {
         int hit_points;
         int mana_points;
         int dropped_item_sets_id;
-        int number_of_item_sets_dropped;
+        int n_item_sets_dropped;
         struct dropped_item_set_type {
             int size;
             struct item_type {
@@ -176,13 +176,13 @@ struct units_doo_type {
             int agility;
             int intelligence;
         } hero_stats;
-        int number_of_items_in_inventory;
+        int n_items_in_inventory;
         struct item_in_inventory_type {
             int slot;
             string type_id;
         };
         vector<item_in_inventory_type> items_in_inventory;
-        int number_of_modified_abilities;
+        int n_modified_abilities;
         struct modified_ability_type {
             string ability_id;
             bool autocast_active;
@@ -201,17 +201,159 @@ struct units_doo_type {
             int position;
         } random_unit_from_random_group;
         struct random_unit_from_custom_table_type {
-            int number_of_units;
+            int n_units;
             struct table_entry_type {
                 string unit_id;
                 int chance;
             };
             vector<table_entry_type> table;
         } random_unit_from_custom_table;
-        int color;
+        int custom_color;
         int waygate;
         int id;
     };
     vector<unit_type> units;
     byte_type unknown;
+};
+
+struct rgba_color_type {
+    byte_type red;
+    byte_type green;
+    byte_type blue;
+    byte_type alpha;
+};
+
+struct w3i_type {
+    int file_format_version;
+    int map_version;
+    int editor_version;
+    string map_name;
+    string author;
+    string map_description;
+    string players_recommended;
+    float camera_bounds[8];
+    int camera_bounds_complements[4];
+    int playable_width;
+    int playable_height;
+    struct flags_type {
+        bool hide_minimap_in_preview;
+        bool modify_ally_priorities;
+        bool melee_map;
+        bool playable_map_size_was_large_and_has_never_been_reduced_to_medium;
+        bool masked_area_are_partially_visible;
+        bool fixed_player_Setting_for_custom_forces;
+        struct use_custom_type {
+            bool forces;
+            bool techtree;
+            bool abilities;
+            bool upgrades;
+        } use_custom;
+        bool map_properties_menu_opened_at_least_once_since_map_creation;
+        struct show_water_waves_type {
+            bool cliff_shores;
+            bool rolling_shores;
+        } show_water_waves;
+        bool unknown_1;
+        bool unknown_2;
+        bool unknown_3;
+    } flags;
+    char main_ground_type;
+    int loading_screen_background_number;
+    string path_of_custom_loading_screen_model;
+    struct screen_type {
+        string text;
+        string title;
+        string screen_subtitle;
+    } loading_screen, prologue_screen;
+    int used_game_data_set;
+    int terrain_fog_style;
+    struct fog_type {
+        float height_start;
+        float height_end;
+        float density;
+        rgba_color_type color;
+    } fog;
+    string global_weather_id;
+    string custom_sound_environment;
+    char tileset_id_of_custom_light_environment;
+    rgba_color_type custom_water_tinting;
+    int max_n_players;
+    struct player_type {
+        int number;
+        int type;
+        int race;
+        bool has_fixed_start_position;
+        string name;
+        float x;
+        float y;
+        bool low_ally_priorities_for_player[32];
+        bool high_ally_priorities_for_player[32];
+    };
+    vector<player_type> players;
+    int max_n_forces;
+    struct force_type {
+        struct flags_type {
+            bool allied;
+            bool allied_victory;
+            bool shared_vision;
+            bool shared_unit_control;
+            bool shared_advanced_unit_control;
+        } flags;
+        bool player_is_in_this_force[32];
+        string name;
+    };
+    vector<force_type> forces;
+    int n_upgrade_availabilities;
+    struct upgrade_availability_type {
+        bool applies_to_player[32];
+        string id;
+        int level_minus_one_of_the_upgrade_for_which_the_availability_is_changed;
+        bool is_available;
+        bool is_researched;
+    };
+    vector<upgrade_availability_type> upgrade_availabilities;
+    int n_tech_availabilities;
+    struct tech_availability_type {
+        bool applies_to_player[32];
+        string tech_id;
+    };
+    vector<tech_availability_type> tech_availabilities;
+    int n_random_unit_tables;
+    struct random_unit_table_type {
+        int n_random_groups;
+        struct random_group_type {
+            int group_number;
+            string group_name;
+            int n_positions;
+            vector<int> positions;
+            int n_widgets;
+            struct random_widget_type {
+                int chance;
+                vector<char> id;
+            };
+            vector<random_widget_type> random_widgets;
+        };
+        vector<random_group_type> random_groups;
+    };
+    vector<random_unit_table_type> random_unit_tables;
+    int n_random_items_table_sets;
+    struct random_item_table_set_type {
+        int n_random_item_tables;
+        struct random_item_table_type {
+            int number;
+            string name;
+            int n_item_sets;
+            struct item_set_type {
+                int n_items;
+                struct item_type {
+                    int percentual_chance;
+                    string id;
+                };
+                vector<item_type> items;
+            };
+            vector<item_set_type> item_sets;
+        };
+        vector<random_item_table_type> random_item_tables;
+    };
+    vector<random_item_table_set_type> random_item_table_set;
 };

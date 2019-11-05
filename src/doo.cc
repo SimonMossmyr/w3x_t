@@ -11,10 +11,10 @@ doo_type doo_to_struct(string contents) {
 
     doo.doodads.format_version = read_int(&ss);
     doo.doodads.format_sub_version = read_int(&ss);
-    doo.doodads.number_of_doodads = read_int(&ss);
+    doo.doodads.n_doodads = read_int(&ss);
 
-    doo.doodads.doodads.resize(doo.doodads.number_of_doodads);
-    for (int i = 0; i < doo.doodads.number_of_doodads; i++) {
+    doo.doodads.doodads.resize(doo.doodads.n_doodads);
+    for (int i = 0; i < doo.doodads.n_doodads; i++) {
         char type_id[5];
         ss.read(type_id, 4);
         type_id[4] = '\0';
@@ -35,15 +35,15 @@ doo_type doo_to_struct(string contents) {
 
         doo.doodads.doodads[i].current_hit_points_percent = read_byte(&ss);
         doo.doodads.doodads[i].item_table_id = read_int(&ss);
-        doo.doodads.doodads[i].number_of_item_sets_dropped = read_int(&ss);
+        doo.doodads.doodads[i].n_item_sets_dropped = read_int(&ss);
         doo.doodads.doodads[i].id = read_int(&ss);
     }
 
     doo.special_doodads_format_version = read_int(&ss);
-    doo.number_of_special_doodads = read_int(&ss);
+    doo.n_special_doodads = read_int(&ss);
 
-    doo.special_doodads.resize(doo.number_of_special_doodads);
-    for (int i = 0; i < doo.number_of_special_doodads; i++) {
+    doo.special_doodads.resize(doo.n_special_doodads);
+    for (int i = 0; i < doo.n_special_doodads; i++) {
         char type_id[5];
         ss.read(type_id, 4);
         type_id[4] = '\0';
@@ -65,10 +65,10 @@ doo_type doo_to_struct(string contents) {
     doo.trees.file_id = string(file_id);
     doo.trees.format_version = read_int(&ss);
     doo.trees.format_sub_version = read_int(&ss);
-    doo.trees.number_of_doodads = read_int(&ss);
+    doo.trees.n_doodads = read_int(&ss);
 
-    doo.trees.doodads.resize(doo.trees.number_of_doodads);
-    for (int i = 0; i < doo.trees.number_of_doodads; i++) {
+    doo.trees.doodads.resize(doo.trees.n_doodads);
+    for (int i = 0; i < doo.trees.n_doodads; i++) {
         char type_id[5];
         ss.read(type_id, 4);
         type_id[4] = '\0';
@@ -89,7 +89,7 @@ doo_type doo_to_struct(string contents) {
 
         doo.trees.doodads[i].current_hit_points_percent = read_byte(&ss);
         doo.trees.doodads[i].item_table_id = read_int(&ss);
-        doo.trees.doodads[i].number_of_item_sets_dropped = read_int(&ss);
+        doo.trees.doodads[i].n_item_sets_dropped = read_int(&ss);
         doo.trees.doodads[i].id = read_int(&ss);
     }
 

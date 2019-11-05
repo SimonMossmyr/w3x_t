@@ -6,11 +6,7 @@ header_type header_to_struct(string header_contents) {
     header_type header;
 
     /** File ID  */
-    char file_id[4 + 1];
-    ss.read(file_id, 4);
-    file_id[4] = '\0';
-
-    header.file_id = file_id;
+    header.file_id = read_chars(&ss, 4);
 
     /** Unused/unknown int */
     ss.ignore(4);

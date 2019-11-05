@@ -25,7 +25,7 @@ int read_and_interpret_w3x_header(char* archive_file_name) {
 string get_contents_from_mpq_file(HANDLE hMpq, string file_name) {
     HANDLE file_handle;
     if (!SFileOpenFileEx(hMpq, file_name.c_str(), SFILE_OPEN_FROM_MPQ, &file_handle)) {
-        error("File does not exist.");
+        error("File " + file_name + " does not exist.");
         exit(1);
     }
 
@@ -89,14 +89,6 @@ int main(int argc, char* argv[])
         error("Could not read contents of listfile.");
     }
     listfile_contents[size_of_listfile] = '\0';
-
-    /** Count number of files in listfile */
-    int number_of_files = 0;
-    for (int i = 0; i < size_of_listfile + 1; i++) {
-        if (listfile_contents[i] == '\r' && listfile_contents[i+1] == '\n') {
-            number_of_files += 1;
-        }
-    }
 
     try {
         w3e_type w3e = w3e_to_struct(get_contents_from_mpq_file(hMpq, "war3map.w3e"));

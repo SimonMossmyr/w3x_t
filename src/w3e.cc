@@ -11,16 +11,16 @@ w3e_type w3e_to_struct(string contents) {
     w3e.custom_tileset = (bool)read_int(&ss);
     
     /** Ground tilesets */
-    w3e.number_of_ground_tilesets = read_int(&ss);
-    w3e.ground_tilesets.resize(w3e.number_of_ground_tilesets);
-    for (int i = 0; i < w3e.number_of_ground_tilesets; i++) {
+    w3e.n_ground_tilesets = read_int(&ss);
+    w3e.ground_tilesets.resize(w3e.n_ground_tilesets);
+    for (int i = 0; i < w3e.n_ground_tilesets; i++) {
         w3e.ground_tilesets[i] = read_chars(&ss, 4);
     }
 
     /** Cliff tilesets */
-    w3e.number_of_cliff_tilesets = read_int(&ss);
-    w3e.cliff_tilesets.resize(w3e.number_of_cliff_tilesets);
-    for (int i = 0; i < w3e.number_of_cliff_tilesets; i++) {
+    w3e.n_cliff_tilesets = read_int(&ss);
+    w3e.cliff_tilesets.resize(w3e.n_cliff_tilesets);
+    for (int i = 0; i < w3e.n_cliff_tilesets; i++) {
         w3e.cliff_tilesets[i] = read_chars(&ss, 4);
     }
 

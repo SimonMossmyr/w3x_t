@@ -1,10 +1,9 @@
 #include "w3x_t.h"
 
 string read_chars(stringstream* ss, int amount) {
-    char buffer[amount + 1];
+    char buffer[amount];
     ss->read(buffer, amount);
-    buffer[amount] = '\0';
-    return string(buffer);
+    return string(buffer, amount);
 }
 
 int read_int(stringstream* ss) {

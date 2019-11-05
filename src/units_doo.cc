@@ -7,10 +7,10 @@ units_doo_type units_doo_to_struct(string contents) {
     udoo.file_id = read_chars(&ss, 4);
     udoo.file_version = read_int(&ss);
     udoo.file_sub_version = read_int(&ss);
-    udoo.number_of_units = read_int(&ss);
+    udoo.n_units = read_int(&ss);
 
-    udoo.units.resize(udoo.number_of_units);
-    for (int i = 0; i < udoo.number_of_units; i++) {
+    udoo.units.resize(udoo.n_units);
+    for (int i = 0; i < udoo.n_units; i++) {
         udoo.units[i].type_id = read_chars(&ss, 4);
         udoo.units[i].variation = read_int(&ss);
         udoo.units[i].position.x = read_float(&ss);
@@ -32,12 +32,12 @@ units_doo_type units_doo_to_struct(string contents) {
         udoo.units[i].mana_points = read_int(&ss);
 
         udoo.units[i].dropped_item_sets_id = read_int(&ss);
-        udoo.units[i].number_of_item_sets_dropped = read_int(&ss);
+        udoo.units[i].n_item_sets_dropped = read_int(&ss);
 
-        if (udoo.units[i].number_of_item_sets_dropped > 0) {
-            udoo.units[i].dropped_item_sets.resize(udoo.units[i].number_of_item_sets_dropped);
+        if (udoo.units[i].n_item_sets_dropped > 0) {
+            udoo.units[i].dropped_item_sets.resize(udoo.units[i].n_item_sets_dropped);
         }
-        for (int j = 0; j < udoo.units[i].number_of_item_sets_dropped; j++) {
+        for (int j = 0; j < udoo.units[i].n_item_sets_dropped; j++) {
             udoo.units[i].dropped_item_sets[j].size = read_int(&ss);
             if (udoo.units[i].dropped_item_sets[j].size > 0) {
                 udoo.units[i].dropped_item_sets[j].items.resize(udoo.units[i].dropped_item_sets[j].size);
@@ -56,16 +56,16 @@ units_doo_type units_doo_to_struct(string contents) {
         udoo.units[i].hero_stats.agility = read_int(&ss);
         udoo.units[i].hero_stats.intelligence = read_int(&ss);
 
-        udoo.units[i].number_of_items_in_inventory = read_int(&ss);
-        udoo.units[i].items_in_inventory.resize(udoo.units[i].number_of_items_in_inventory);
-        for (int j = 0; i < udoo.units[i].number_of_items_in_inventory; j++) {
+        udoo.units[i].n_items_in_inventory = read_int(&ss);
+        udoo.units[i].items_in_inventory.resize(udoo.units[i].n_items_in_inventory);
+        for (int j = 0; i < udoo.units[i].n_items_in_inventory; j++) {
             udoo.units[i].items_in_inventory[j].slot = read_int(&ss);
             udoo.units[i].items_in_inventory[j].type_id = read_chars(&ss, 4);
         }
 
-        udoo.units[i].number_of_modified_abilities = read_int(&ss);
-        udoo.units[i].modified_abilities.resize(udoo.units[i].number_of_modified_abilities);
-        for (int j = 0; j < udoo.units[i].number_of_modified_abilities; j++) {
+        udoo.units[i].n_modified_abilities = read_int(&ss);
+        udoo.units[i].modified_abilities.resize(udoo.units[i].n_modified_abilities);
+        for (int j = 0; j < udoo.units[i].n_modified_abilities; j++) {
             udoo.units[i].modified_abilities[j].ability_id = read_chars(&ss, 4);
             udoo.units[i].modified_abilities[j].autocast_active = (bool)read_int(&ss);
             udoo.units[i].modified_abilities[j].level = read_int(&ss);
@@ -84,16 +84,16 @@ units_doo_type units_doo_to_struct(string contents) {
                 udoo.units[i].random_unit_from_random_group.position = read_int(&ss);
                 break;
             case 2:
-                udoo.units[i].random_unit_from_custom_table.number_of_units = read_int(&ss);
-                udoo.units[i].random_unit_from_custom_table.table.resize(udoo.units[i].random_unit_from_custom_table.number_of_units);
-                for (int j = 0; j < udoo.units[i].random_unit_from_custom_table.number_of_units; j++) {
+                udoo.units[i].random_unit_from_custom_table.n_units = read_int(&ss);
+                udoo.units[i].random_unit_from_custom_table.table.resize(udoo.units[i].random_unit_from_custom_table.n_units);
+                for (int j = 0; j < udoo.units[i].random_unit_from_custom_table.n_units; j++) {
                     udoo.units[i].random_unit_from_custom_table.table[j].unit_id = read_chars(&ss, 4);
                     udoo.units[i].random_unit_from_custom_table.table[j].chance = read_int(&ss);
                 }
                 break;
         }
 
-        udoo.units[i].color = read_int(&ss);
+        udoo.units[i].custom_color = read_int(&ss);
         udoo.units[i].waygate = read_int(&ss);
         udoo.units[i].id = read_int(&ss);
     }
