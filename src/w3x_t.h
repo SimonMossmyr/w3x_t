@@ -5,7 +5,15 @@
 #include <string>
 #include <StormLib.h>
 
-#include "structs.h"
+#include "structs/header_type.h"
+#include "structs/w3e_type.h"
+#include "structs/shd_type.h"
+#include "structs/wpm_type.h"
+#include "structs/doo_type.h"
+#include "structs/units_doo_type.h"
+#include "structs/w3i_type.h"
+
+using namespace std;
 
 #define W3JSON_VERSION_MAJOR 0 // should probably be handled by CMake
 #define W3JSON_VERSION_MINOR 0
