@@ -21,13 +21,13 @@ doo_type doo_to_struct(string contents) {
         doo.doodads.doodads[i].type_id = string(type_id);
 
         doo.doodads.doodads[i].variation = read_int(&ss);
-        doo.doodads.doodads[i].position_x = read_float(&ss);
-        doo.doodads.doodads[i].position_y = read_float(&ss);
-        doo.doodads.doodads[i].position_z = read_float(&ss);
+        doo.doodads.doodads[i].position.x = read_float(&ss);
+        doo.doodads.doodads[i].position.y = read_float(&ss);
+        doo.doodads.doodads[i].position.z = read_float(&ss);
         doo.doodads.doodads[i].rotation_angle = read_float(&ss);
-        doo.doodads.doodads[i].scale_x = read_float(&ss);
-        doo.doodads.doodads[i].scale_y = read_float(&ss);
-        doo.doodads.doodads[i].scale_z = read_float(&ss);
+        doo.doodads.doodads[i].scale.x = read_float(&ss);
+        doo.doodads.doodads[i].scale.y = read_float(&ss);
+        doo.doodads.doodads[i].scale.z = read_float(&ss);
         
         int flags = (int)read_byte(&ss);
         doo.doodads.doodads[i].visible = (bool)(flags & 1);
@@ -50,9 +50,9 @@ doo_type doo_to_struct(string contents) {
         doo.special_doodads[i].type_id = string(type_id);
         cout << doo.special_doodads[i].type_id << " ";
 
-        doo.special_doodads[i].position_z = read_int(&ss);
-        doo.special_doodads[i].position_x = read_int(&ss);
-        doo.special_doodads[i].position_y = read_int(&ss);
+        doo.special_doodads[i].position.z = read_int(&ss);
+        doo.special_doodads[i].position.x = read_int(&ss);
+        doo.special_doodads[i].position.y = read_int(&ss);
     }
 
     /**
@@ -75,13 +75,13 @@ doo_type doo_to_struct(string contents) {
         doo.trees.doodads[i].type_id = string(type_id);
 
         doo.trees.doodads[i].variation = read_int(&ss);
-        doo.trees.doodads[i].position_x = read_float(&ss);
-        doo.trees.doodads[i].position_y = read_float(&ss);
-        doo.trees.doodads[i].position_z = read_float(&ss);
+        doo.trees.doodads[i].position.x = read_float(&ss);
+        doo.trees.doodads[i].position.y = read_float(&ss);
+        doo.trees.doodads[i].position.z = read_float(&ss);
         doo.trees.doodads[i].rotation_angle = read_float(&ss);
-        doo.trees.doodads[i].scale_x = read_float(&ss);
-        doo.trees.doodads[i].scale_y = read_float(&ss);
-        doo.trees.doodads[i].scale_z = read_float(&ss);
+        doo.trees.doodads[i].scale.x = read_float(&ss);
+        doo.trees.doodads[i].scale.y = read_float(&ss);
+        doo.trees.doodads[i].scale.z = read_float(&ss);
         
         int flags = (int)read_byte(&ss);
         doo.trees.doodads[i].visible = (bool)(flags & 1);

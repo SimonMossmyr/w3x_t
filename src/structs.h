@@ -6,7 +6,8 @@ using namespace std;
 typedef char byte_type;
 
 struct DataStillExistsException : public exception {
-    string message;
+    private:
+        string message;
     public:
         DataStillExistsException(string file_name) {
             message = file_name + " still contains data after being processed. Either file is corrupt or interpreter is incorrect.";
@@ -91,6 +92,18 @@ struct wpm_type {
     vector<path_pixel_type> path_pixels;
 };
 
+struct position_type {
+    float x;
+    float y;
+    float z;
+};
+
+struct scale_type {
+    float x;
+    float y;
+    float z;
+};
+
 struct w3do_type {
     string file_id;
     int format_version;
@@ -99,13 +112,9 @@ struct w3do_type {
     struct doodad_type {
         string type_id;
         int variation;
-        float position_x;
-        float position_y;
-        float position_z;
+        position_type position;
         float rotation_angle;
-        float scale_x;
-        float scale_y;
-        float scale_z;
+        scale_type scale;
         bool visible;
         bool solid;
         byte_type current_hit_points_percent;
@@ -123,9 +132,7 @@ struct doo_type {
     int number_of_special_doodads;
     struct special_doodad_type {
         string type_id;
-        int position_z;
-        int position_x;
-        int position_y;
+        position_type position;
     };
     vector<special_doodad_type> special_doodads;
 
@@ -140,13 +147,9 @@ struct units_doo_type {
     struct unit_type {
         string type_id;
         int variation;
-        float position_x;
-        float position_y;
-        float position_z;
+        position_type position;
         float rotation_angle;
-        float scale_x;
-        float scale_y;
-        float scale_z;
+        scale_type scale;
         bool visible;
         bool solid;
         int owning_player;
