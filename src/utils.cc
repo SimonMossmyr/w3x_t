@@ -30,6 +30,7 @@ void warning(string message) {
 
 int error(string message) {
     cout << "\033[1;31mError\033[0m: " << message << " (Code " << GetLastError() << ")" << endl;
+    exit(1);
     return 1; 
 }
 

@@ -93,5 +93,9 @@ doo_type doo_to_struct(string contents) {
         doo.trees.doodads[i].id = read_int(&ss);
     }
 
+    if (!ss.eof()) {
+        error("war3map.doo still contains data after being read. Either file is corrupt or interpreter is incorrect.");
+    }
+
     return doo;
 }

@@ -13,5 +13,9 @@ shd_type shd_to_struct(string contents, int map_width, int map_height) {
         shd.shadow[i] = (bool)c;
     }
 
+    if (!ss.eof()) {
+        error("war3map.shd still contains data after being read. Either file is corrupt or interpreter is incorrect.");
+    }
+
     return shd;
 }

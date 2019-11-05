@@ -62,5 +62,9 @@ w3e_type w3e_to_struct(string contents) {
         char layer_height = (int)read_char(&ss);
     }
 
+    if (!ss.eof()) {
+        error("war3map.w3e still contains data after being read. Either file is corrupt or interpreter is incorrect.");
+    }
+
     return w3e;
 }
