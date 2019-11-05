@@ -72,6 +72,7 @@ struct w3e_type {
 
 struct shd_type {
     vector<bool> shadow;
+    byte_type unknown_or_unused;
 };
 
 struct wpm_type {

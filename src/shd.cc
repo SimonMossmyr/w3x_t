@@ -13,6 +13,8 @@ shd_type shd_to_struct(string contents, int map_width, int map_height) {
         shd.shadow[i] = (bool)c;
     }
 
+    shd.unknown_or_unused = read_byte(&ss);
+
     if (!ss.eof()) {
         throw DataStillExistsException("war3map.shd");
     }
