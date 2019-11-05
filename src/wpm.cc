@@ -28,7 +28,7 @@ wpm_type wpm_to_struct(string contents) {
     }
 
     if (!ss.eof()) {
-        error("war3map.wpm still contains data after being read. Either file is corrupt or interpreter is incorrect.");
+        throw DataStillExistsException("war3map.wpm");
     }
 
     return wpm;

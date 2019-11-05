@@ -29,11 +29,11 @@ doo_type doo_to_struct(string contents) {
         doo.doodads.doodads[i].scale_y = read_float(&ss);
         doo.doodads.doodads[i].scale_z = read_float(&ss);
         
-        int flags = (int)read_char(&ss);
+        int flags = (int)read_byte(&ss);
         doo.doodads.doodads[i].visible = (bool)(flags & 1);
         doo.doodads.doodads[i].visible = (bool)(flags & 2);
 
-        doo.doodads.doodads[i].current_hit_points_percent = read_char(&ss);
+        doo.doodads.doodads[i].current_hit_points_percent = read_byte(&ss);
         doo.doodads.doodads[i].item_table_id = read_int(&ss);
         doo.doodads.doodads[i].number_of_item_sets_dropped = read_int(&ss);
         doo.doodads.doodads[i].id = read_int(&ss);
@@ -83,18 +83,18 @@ doo_type doo_to_struct(string contents) {
         doo.trees.doodads[i].scale_y = read_float(&ss);
         doo.trees.doodads[i].scale_z = read_float(&ss);
         
-        int flags = (int)read_char(&ss);
+        int flags = (int)read_byte(&ss);
         doo.trees.doodads[i].visible = (bool)(flags & 1);
         doo.trees.doodads[i].visible = (bool)(flags & 2);
 
-        doo.trees.doodads[i].current_hit_points_percent = read_char(&ss);
+        doo.trees.doodads[i].current_hit_points_percent = read_byte(&ss);
         doo.trees.doodads[i].item_table_id = read_int(&ss);
         doo.trees.doodads[i].number_of_item_sets_dropped = read_int(&ss);
         doo.trees.doodads[i].id = read_int(&ss);
     }
 
     if (!ss.eof()) {
-        error("war3map.doo still contains data after being read. Either file is corrupt or interpreter is incorrect.");
+        throw DataStillExistsException("war3map.doo");
     }
 
     return doo;

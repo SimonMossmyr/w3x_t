@@ -59,19 +59,19 @@ int main(int argc, char* argv[])
 
     /** Read W3X Header */
     if(!read_and_interpret_w3x_header(archive_file_name)) {
-        return error("Could not read archive header.", 1);
+        error("Could not read archive header.", 1);
     }
 
     /** Open w3x as MPQ archive */
     HANDLE hMpq = NULL;
     if(!SFileOpenArchive(archive_file_name, 0, MPQ_OPEN_READ_ONLY, &hMpq)) {
-        return error("Archive could not be opened.");
+        error("Archive could not be opened.");
     }
 
     /** Open archive listfile */
     HANDLE listfile_handle = NULL;
     if(!SFileOpenFileEx(hMpq, "(listfile)", SFILE_OPEN_FROM_MPQ, &listfile_handle)) {
-        return error("Listfile could not be opened.");
+        error("Listfile could not be opened.");
     }
 
     /** Find size of listfile */
@@ -79,14 +79,14 @@ int main(int argc, char* argv[])
     DWORD size_of_listfile = 0;
     size_of_listfile = SFileGetFileSize(listfile_handle, &size_of_listfile_high);
     if (size_of_listfile == SFILE_INVALID_SIZE || size_of_listfile_high != 0) {
-        return error("Size of listfile could not be determined.");
+        error("Size of listfile could not be determined.");
     }
 
     /** Read contents of listfile */
     char listfile_contents[size_of_listfile + 1]; // extra byte for null termination
     DWORD number_of_chars_actually_read = 0;
     if(!SFileReadFile(listfile_handle, &listfile_contents, size_of_listfile, &number_of_chars_actually_read, NULL)) {
-        return error("Could not read contents of listfile.");
+        error("Could not read contents of listfile.");
     }
     listfile_contents[size_of_listfile] = '\0';
 
@@ -98,10 +98,15 @@ int main(int argc, char* argv[])
         }
     }
 
-    w3e_type w3e = w3e_to_struct(get_contents_from_mpq_file(hMpq, "war3map.w3e"));
-    shd_type shd = shd_to_struct(get_contents_from_mpq_file(hMpq, "war3map.shd"), w3e.map_width_plus_one - 1, w3e.map_height_plus_one - 1);
-    wpm_type wpm = wpm_to_struct(get_contents_from_mpq_file(hMpq, "war3map.wpm"));
-    doo_type doo = doo_to_struct(get_contents_from_mpq_file(hMpq, "war3map.doo"));
+    try {
+        w3e_type w3e = w3e_to_struct(get_contents_from_mpq_file(hMpq, "war3map.w3e"));
+        shd_type shd = shd_to_struct(get_contents_from_mpq_file(hMpq, "war3map.shd"), w3e.map_width_plus_one - 1, w3e.map_height_plus_one - 1);
+        wpm_type wpm = wpm_to_struct(get_contents_from_mpq_file(hMpq, "war3map.wpm"));
+        doo_type doo = doo_to_struct(get_contents_from_mpq_file(hMpq, "war3map.doo"));
+    }
+    catch (exception& s) {
+        error(s.what());
+    }
 
     return 0;
 }

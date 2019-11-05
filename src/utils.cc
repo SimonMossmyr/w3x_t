@@ -1,5 +1,12 @@
 #include "w3x_t.h"
 
+string read_chars(stringstream* ss, int amount) {
+    char buffer[amount + 1];
+    ss->read(buffer, amount);
+    buffer[amount] = '\0';
+    return string(buffer);
+}
+
 int read_int(stringstream* ss) {
     int i;
     ss->read(reinterpret_cast<char *>(&i), sizeof(i));
@@ -18,8 +25,8 @@ short read_short(stringstream* ss) {
     return i;
 }
 
-char read_char(stringstream* ss) {
-    char i;
+byte_type read_byte(stringstream* ss) {
+    byte_type i;
     ss->get(i);
     return i;
 }

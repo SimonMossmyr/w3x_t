@@ -38,11 +38,7 @@ header_type header_to_struct(string header_contents) {
     header.flags.show_water_waves_on_cliff_shores = (bool)((map_flags_raw_binary >> 11) & 1);
     header.flags.show_water_waves_on_rolling_shores = (bool)((map_flags_raw_binary >> 12) & 1);
 
-    /** Max players */
-    uint32_t max_players = 0;
-    ss.read(reinterpret_cast<char*>(&max_players), sizeof(max_players));
-
-    header.max_players = max_players;
+    header.max_players = read_int(&ss);
 
     return header;
 }

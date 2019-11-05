@@ -7,16 +7,16 @@
 
 #include "structs.h"
 
-/** Version (semantic) */
-#define W3JSON_VERSION_MAJOR 0
+#define W3JSON_VERSION_MAJOR 0 // should probably be handled by CMake
 #define W3JSON_VERSION_MINOR 0
 #define W3JSON_VERSION_PATCH 0
 
 /** Utils */
+string read_chars(stringstream* ss, int amount);
 int read_int(stringstream* ss);
 float read_float(stringstream* ss);
 short read_short(stringstream* ss);
-char read_char(stringstream* ss);
+byte_type read_byte(stringstream* ss);
 void warning(string message);
 int error(string message);
 int error(string message, int error_code);

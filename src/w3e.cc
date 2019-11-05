@@ -5,34 +5,23 @@ w3e_type w3e_to_struct(string contents) {
     stringstream ss(contents);
     w3e_type w3e;
 
-    /** File ID */
-    char file_id[4 + 1];
-    ss.read(file_id, 4);
-    file_id[4] = '\0';
-    w3e.file_id = file_id;
-    
+    w3e.file_id = read_chars(&ss, 4);    
     w3e.format_version = read_int(&ss);
-    w3e.main_tileset = read_char(&ss);
+    w3e.main_tileset = read_byte(&ss);
     w3e.custom_tileset = (bool)read_int(&ss);
     
     /** Ground tilesets */
     w3e.number_of_ground_tilesets = read_int(&ss);
     w3e.ground_tilesets.resize(w3e.number_of_ground_tilesets);
     for (int i = 0; i < w3e.number_of_ground_tilesets; i++) {
-        char ground_tilesets[5];
-        ss.read(ground_tilesets, 4);
-        ground_tilesets[4] = '\0';
-        w3e.ground_tilesets[i] = string(ground_tilesets);
+        w3e.ground_tilesets[i] = read_chars(&ss, 4);
     }
 
     /** Cliff tilesets */
     w3e.number_of_cliff_tilesets = read_int(&ss);
     w3e.cliff_tilesets.resize(w3e.number_of_cliff_tilesets);
     for (int i = 0; i < w3e.number_of_cliff_tilesets; i++) {
-        char cliff_tilesets[5];
-        ss.read(cliff_tilesets, 4);
-        cliff_tilesets[4] = '\0';
-        w3e.cliff_tilesets[i] = string(cliff_tilesets);
+        w3e.cliff_tilesets[i] = read_chars(&ss, 4);
     }
 
     w3e.map_width_plus_one = read_int(&ss);
@@ -41,29 +30,34 @@ w3e_type w3e_to_struct(string contents) {
     w3e.center_offset_y = read_float(&ss);
 
     /** Tilepoint data */
-    int number_of_tilepoints = (w3e.map_width_plus_one - 1)*(w3e.map_height_plus_one - 1);
-    w3e.tilepoints.resize(number_of_tilepoints);
-    for (int i = 0; i < number_of_tilepoints; i++) {
+    w3e.tilepoints.resize(w3e.map_width_plus_one*w3e.map_height_plus_one);
+    for (int i = 0; i < w3e.map_width_plus_one*w3e.map_height_plus_one; i++) {
         w3e.tilepoints[i].ground_height = read_short(&ss);
 
-        short water_level_and_boundary_flag = read_short(&ss);
-        w3e.tilepoints[i].water_level = water_level_and_boundary_flag & 0x7FFF; // lowest 15 bits
-        w3e.tilepoints[i].flag.boundary_1 = (bool)(water_level_and_boundary_flag & 0x8000); // highest bit;
+        short water_height_and_boundary_flag = read_short(&ss);
+        w3e.tilepoints[i].water_height = water_height_and_boundary_flag & 0x7FFF; // lowest 15 bits
+        w3e.tilepoints[i].flag.boundary_1 = (bool)(water_height_and_boundary_flag & 0x8000); // highest bit;
         
-        char flags = read_char(&ss);
-        w3e.tilepoints[i].flag.ramp = (bool)(flags & 0x1);
-        w3e.tilepoints[i].flag.blight = (bool)(flags & 0x2);
-        w3e.tilepoints[i].flag.water = (bool)(flags & 0x4);
-        w3e.tilepoints[i].flag.boundary_2 = (bool)(flags & 0x8);
-        
-        char ground_texture_type = (int)read_char(&ss);
-        char texture_detail = (int)read_char(&ss);
-        char cliff_texture_type = (int)read_char(&ss);
-        char layer_height = (int)read_char(&ss);
+        byte_type flags_and_ground_texture = read_byte(&ss);
+        w3e.tilepoints[i].flag.ramp = (bool)(flags_and_ground_texture & 0x10);
+        w3e.tilepoints[i].flag.blight = (bool)(flags_and_ground_texture & 0x20);
+        w3e.tilepoints[i].flag.water = (bool)(flags_and_ground_texture & 0x40);
+        w3e.tilepoints[i].flag.boundary_2 = (bool)(flags_and_ground_texture & 0x80);
+        w3e.tilepoints[i].ground_texture_type = (int)(flags_and_ground_texture & 0xF);
+
+        byte_type ground_and_cliff_variation = read_byte(&ss);
+        w3e.tilepoints[i].ground_texture_variation = (int)(ground_and_cliff_variation & 0xF8);
+        w3e.tilepoints[i].cliff_texture_variation = (int)(ground_and_cliff_variation & 0x7);
+
+        byte_type cliff_texture_and_layer_height = read_byte(&ss);
+        w3e.tilepoints[i].cliff_texture_type = (int)(cliff_texture_and_layer_height & 0xF0);
+        w3e.tilepoints[i].layer_height = (int)(cliff_texture_and_layer_height & 0x0F);
     }
 
-    if (!ss.eof()) {
-        error("war3map.w3e still contains data after being read. Either file is corrupt or interpreter is incorrect.");
+    w3e.unknown = read_byte(&ss);
+
+    if (!ss.eof()) {    
+        throw DataStillExistsException("war3map.w3e");
     }
 
     return w3e;
