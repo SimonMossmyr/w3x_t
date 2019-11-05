@@ -85,7 +85,7 @@ doo_type doo_to_struct(string contents) {
         
         int flags = (int)read_byte(&ss);
         doo.trees.doodads[i].visible = (bool)(flags & 1);
-        doo.trees.doodads[i].visible = (bool)(flags & 2);
+        doo.trees.doodads[i].solid = (bool)(flags & 2);
 
         doo.trees.doodads[i].current_hit_points_percent = read_byte(&ss);
         doo.trees.doodads[i].item_table_id = read_int(&ss);

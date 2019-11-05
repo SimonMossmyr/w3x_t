@@ -36,13 +36,13 @@ string get_contents_from_mpq_file(HANDLE hMpq, string file_name) {
         exit(1);
     }
 
-    char file_contents[size_of_file + 1];
+    char file_contents[size_of_file];
     DWORD number_of_chars_actually_read = 0;
     if (!SFileReadFile(file_handle, &file_contents, size_of_file, &number_of_chars_actually_read, NULL)) {
         error("Could not read contents of file.");
         exit(1);
     }
-    file_contents[size_of_file] = '\0';
+    //file_contents[size_of_file] = '\0';
     return string(file_contents, number_of_chars_actually_read);
 }
 
@@ -103,6 +103,7 @@ int main(int argc, char* argv[])
         shd_type shd = shd_to_struct(get_contents_from_mpq_file(hMpq, "war3map.shd"), w3e.map_width_plus_one - 1, w3e.map_height_plus_one - 1);
         wpm_type wpm = wpm_to_struct(get_contents_from_mpq_file(hMpq, "war3map.wpm"));
         doo_type doo = doo_to_struct(get_contents_from_mpq_file(hMpq, "war3map.doo"));
+        units_doo_type udoo = units_doo_to_struct(get_contents_from_mpq_file(hMpq, "war3mapUnits.doo"));
     }
     catch (exception& s) {
         error(s.what());
