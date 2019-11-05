@@ -1,5 +1,18 @@
 #include "w3x_t.h"
 
+string read_string(stringstream* ss) {
+    string s;
+    char c;
+    while (1) {
+        ss->get(c);
+        if (c == '\0') {
+            break;
+        }
+        s += c;
+    }
+    return s;
+}
+
 string read_chars(stringstream* ss, int amount) {
     char buffer[amount];
     ss->read(buffer, amount);
@@ -28,6 +41,10 @@ byte_type read_byte(stringstream* ss) {
     byte_type i;
     ss->get(i);
     return i;
+}
+
+char read_char(stringstream* ss) {
+    return read_byte(ss);
 }
 
 void warning(string message) {

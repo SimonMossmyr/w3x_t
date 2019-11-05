@@ -10,6 +10,7 @@ set(SRC_FILES
   src/wpm.cc
   src/doo.cc
   src/units_doo.cc
+  src/w3i.cc
 )
 
 add_executable(w3x_t

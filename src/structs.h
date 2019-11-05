@@ -227,14 +227,16 @@ struct w3i_type {
     int file_format_version;
     int map_version;
     int editor_version;
-    string map_name;
+    string name;
     string author;
-    string map_description;
-    string players_recommended;
+    string description;
+    string recommended_players;
     float camera_bounds[8];
     int camera_bounds_complements[4];
-    int playable_width;
-    int playable_height;
+    struct playable_area_type {
+        int width;
+        int height;
+    } playable_area;
     struct flags_type {
         bool hide_minimap_in_preview;
         bool modify_ally_priorities;
@@ -259,17 +261,19 @@ struct w3i_type {
     } flags;
     char main_ground_type;
     int loading_screen_background_number;
-    string path_of_custom_loading_screen_model;
     struct screen_type {
+        string path;
         string text;
         string title;
-        string screen_subtitle;
+        string subtitle;
     } loading_screen, prologue_screen;
     int used_game_data_set;
-    int terrain_fog_style;
     struct fog_type {
-        float height_start;
-        float height_end;
+        int style;
+        struct height_type {
+            float start;
+            float end;
+        } height;
         float density;
         rgba_color_type color;
     } fog;
@@ -284,8 +288,10 @@ struct w3i_type {
         int race;
         bool has_fixed_start_position;
         string name;
-        float x;
-        float y;
+        struct starting_location_type {
+            float x;
+            float y;
+        } starting_location;
         bool low_ally_priorities_for_player[32];
         bool high_ally_priorities_for_player[32];
     };
@@ -315,21 +321,21 @@ struct w3i_type {
     int n_tech_availabilities;
     struct tech_availability_type {
         bool applies_to_player[32];
-        string tech_id;
+        string id;
     };
     vector<tech_availability_type> tech_availabilities;
     int n_random_unit_tables;
     struct random_unit_table_type {
         int n_random_groups;
         struct random_group_type {
-            int group_number;
-            string group_name;
+            int number;
+            string name;
             int n_positions;
             vector<int> positions;
             int n_widgets;
             struct random_widget_type {
                 int chance;
-                vector<char> id;
+                vector<string> ids;
             };
             vector<random_widget_type> random_widgets;
         };
@@ -355,5 +361,6 @@ struct w3i_type {
         };
         vector<random_item_table_type> random_item_tables;
     };
-    vector<random_item_table_set_type> random_item_table_set;
+    vector<random_item_table_set_type> random_item_table_sets;
+    byte_type unknown;
 };

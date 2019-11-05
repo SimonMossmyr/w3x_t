@@ -96,6 +96,7 @@ int main(int argc, char* argv[])
         wpm_type wpm = wpm_to_struct(get_contents_from_mpq_file(hMpq, "war3map.wpm"));
         doo_type doo = doo_to_struct(get_contents_from_mpq_file(hMpq, "war3map.doo"));
         units_doo_type udoo = units_doo_to_struct(get_contents_from_mpq_file(hMpq, "war3mapUnits.doo"));
+        w3i_type w3i = w3i_to_struct(get_contents_from_mpq_file(hMpq, "war3map.w3i"));
     }
     catch (exception& s) {
         error(s.what());
