@@ -4,10 +4,9 @@
 #include <string>
 #include <vector>
 
-
 using namespace std;
 
-typedef char byte_type;
+typedef unsigned char byte_type;
 
 struct DataStillExistsException : public exception {
     private:

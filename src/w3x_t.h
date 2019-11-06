@@ -12,6 +12,7 @@
 #include "structs/doo_type.h"
 #include "structs/units_doo_type.h"
 #include "structs/w3i_type.h"
+#include "structs/wts_type.h"
 
 using namespace std;
 
@@ -25,8 +26,8 @@ string      read_chars  (stringstream* ss, int amount);
 int         read_int    (stringstream* ss);
 float       read_float  (stringstream* ss);
 short       read_short  (stringstream* ss);
-byte_type   read_byte   (stringstream* ss);
 char        read_char   (stringstream* ss);
+byte_type   read_byte   (stringstream* ss);
 
 void warning(string message);
 int error(string message);
@@ -40,6 +41,7 @@ wpm_type        wpm_to_struct       (string contents);
 doo_type        doo_to_struct       (string contents);
 units_doo_type  units_doo_to_struct (string contents);
 w3i_type        w3i_to_struct       (string contents);
+wts_type        wts_to_struct       (string contents);
 
 /** main */
 int read_and_interpret_w3x_header(char* archive_file_name);

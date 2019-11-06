@@ -11,6 +11,7 @@ set(SRC_FILES
   src/doo.cc
   src/units_doo.cc
   src/w3i.cc
+  src/wts.cc
 )
 
 add_executable(w3x_t

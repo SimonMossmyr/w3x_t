@@ -8,9 +8,7 @@ shd_type shd_to_struct(string contents, int map_width, int map_height) {
     int number_of_pixels = 16*map_width*map_height;
     shd.shadow.resize(number_of_pixels);
     for (int i = 0; i < number_of_pixels; i++) {
-        byte_type c;
-        ss.get(c);
-        shd.shadow[i] = (bool)c;
+        shd.shadow[i] = (bool)read_byte(&ss);
     }
 
     shd.unknown_or_unused = read_byte(&ss);
