@@ -4,10 +4,7 @@ doo_type doo_to_struct(string contents) {
     stringstream ss(contents);
     doo_type doo;
 
-    char file_id[5];
-    ss.read(file_id, 4);
-    file_id[4] = '\0';
-    doo.doodads.file_id = string(file_id);
+    doo.doodads.file_id = read_chars(&ss, 4);
 
     doo.doodads.format_version = read_int(&ss);
     doo.doodads.format_sub_version = read_int(&ss);
@@ -29,7 +26,7 @@ doo_type doo_to_struct(string contents) {
         doo.doodads.doodads[i].scale.y = read_float(&ss);
         doo.doodads.doodads[i].scale.z = read_float(&ss);
         
-        int flags = (int)read_byte(&ss);
+        byte_type flags = read_byte(&ss);
         doo.doodads.doodads[i].visible = (bool)(flags & 1);
         doo.doodads.doodads[i].visible = (bool)(flags & 2);
 
@@ -44,11 +41,7 @@ doo_type doo_to_struct(string contents) {
 
     doo.special_doodads.resize(doo.n_special_doodads);
     for (int i = 0; i < doo.n_special_doodads; i++) {
-        char type_id[5];
-        ss.read(type_id, 4);
-        type_id[4] = '\0';
-        doo.special_doodads[i].type_id = string(type_id);
-        cout << doo.special_doodads[i].type_id << " ";
+        doo.special_doodads[i].type_id = read_chars(&ss, 4);
 
         doo.special_doodads[i].position.z = read_int(&ss);
         doo.special_doodads[i].position.x = read_int(&ss);
@@ -61,8 +54,7 @@ doo_type doo_to_struct(string contents) {
      * function that takes the stringstream as an argument, please do, but after four hours of
      * this I give up.
      */
-    ss.read(file_id, 4);
-    doo.trees.file_id = string(file_id);
+    doo.trees.file_id = read_chars(&ss, 4);
     doo.trees.format_version = read_int(&ss);
     doo.trees.format_sub_version = read_int(&ss);
     doo.trees.n_doodads = read_int(&ss);
@@ -83,7 +75,7 @@ doo_type doo_to_struct(string contents) {
         doo.trees.doodads[i].scale.y = read_float(&ss);
         doo.trees.doodads[i].scale.z = read_float(&ss);
         
-        int flags = (int)read_byte(&ss);
+        byte_type flags = read_byte(&ss);
         doo.trees.doodads[i].visible = (bool)(flags & 1);
         doo.trees.doodads[i].solid = (bool)(flags & 2);
 

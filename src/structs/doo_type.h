@@ -2,21 +2,21 @@
 
 struct w3do_type {
     string file_id;
-    int format_version;
-    int format_sub_version;
-    int n_doodads;
+    uint32_t format_version;
+    uint32_t format_sub_version;
+    uint32_t n_doodads;
     struct doodad_type {
         string type_id;
-        int variation;
+        uint32_t variation;
         position_type position;
         float rotation_angle;
         scale_type scale;
         bool visible;
         bool solid;
         byte_type current_hit_points_percent;
-        int item_table_id;
-        int n_item_sets_dropped;
-        int id;
+        uint32_t item_table_id;
+        uint32_t n_item_sets_dropped;
+        uint32_t id;
     };
     vector<doodad_type> doodads;
 };
@@ -24,8 +24,8 @@ struct w3do_type {
 struct doo_type {
     w3do_type doodads;
 
-    int special_doodads_format_version;
-    int n_special_doodads;
+    uint32_t special_doodads_format_version;
+    uint32_t n_special_doodads;
     struct special_doodad_type {
         string type_id;
         position_type position;

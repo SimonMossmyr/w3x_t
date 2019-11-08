@@ -2,9 +2,9 @@
 
 struct wpm_type {
     string file_id;
-    int format_version;
-    int path_map_width;
-    int path_map_height;
+    uint32_t format_version;
+    uint32_t path_map_width;
+    uint32_t path_map_height;
     struct path_pixel_type {
         bool walk;
         bool fly;

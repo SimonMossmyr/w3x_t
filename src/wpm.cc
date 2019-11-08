@@ -5,11 +5,7 @@ wpm_type wpm_to_struct(string contents) {
     stringstream ss(contents);
     wpm_type wpm;
     
-    char file_id[5];
-    ss.read(file_id, 4);
-    file_id[4] = '\0';
-    wpm.file_id = string(file_id);
-
+    wpm.file_id = read_chars(&ss, 4);
     wpm.format_version = read_int(&ss);
     wpm.path_map_width = read_int(&ss);
     wpm.path_map_height = read_int(&ss);

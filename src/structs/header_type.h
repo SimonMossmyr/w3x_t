@@ -18,5 +18,5 @@ struct header_type {
         bool show_water_waves_on_cliff_shores;
         bool show_water_waves_on_rolling_shores;
     } flags;
-    int max_players;
+    uint32_t max_players;
 };

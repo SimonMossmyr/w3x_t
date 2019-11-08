@@ -24,7 +24,7 @@ w3i_type w3i_to_struct(string contents) {
     w3i.playable_area.width = read_int(&ss);
     w3i.playable_area.height = read_int(&ss);
 
-    int flags = read_int(&ss);
+    uint32_t flags = read_int(&ss);
     w3i.flags.hide_minimap_in_preview = (bool)(flags & 0x1);
     w3i.flags.modify_ally_priorities = (bool)(flags & 0x2);
     w3i.flags.melee_map = (bool)(flags & 0x4);
