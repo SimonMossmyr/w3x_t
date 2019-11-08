@@ -13,6 +13,7 @@
 #include "structs/units_doo_type.h"
 #include "structs/w3i_type.h"
 #include "structs/wts_type.h"
+#include "structs/w3o_type.h"
 
 using namespace std;
 
