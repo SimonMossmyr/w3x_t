@@ -48,16 +48,10 @@ byte_type read_byte(stringstream* ss) {
 }
 
 void warning(string message) {
-    cout << "\033[1;33mWarning\033[0m: " << message << " (Code " << GetLastError() << ")" << endl;
+    cout << "\033[1;33mWarning\033[0m: " << message << endl;
 }
 
-int error(string message) {
-    cout << "\033[1;31mError\033[0m: " << message << " (Code " << GetLastError() << ")" << endl;
+void error(string message) {
+    cout << "\033[1;31mError\033[0m: " << message << endl;
     exit(1);
-    return 1; 
-}
-
-int error(string message, int error_code) {
-    SetLastError(error_code);
-    return error(message);
 }
