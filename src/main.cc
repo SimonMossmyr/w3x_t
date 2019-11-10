@@ -39,16 +39,41 @@ string get_contents_from_mpq_file(HANDLE hMpq, string file_name) {
     return string(file_contents, number_of_chars_actually_read);
 }
 
+string extract_triggerdata_txt_from_casc(char* warcraft_iii_path) {
+    HANDLE hStorage = NULL;        // Open storage handle
+    HANDLE hFile  = NULL;          // Storage file handle
+    HANDLE handle = NULL;          // Disk file handle
+
+    if(!CascOpenStorage(warcraft_iii_path, 0, &hStorage))
+        return "";
+
+    if(!CascOpenFile(hStorage, "war3.w3mod:ui\\triggerdata.txt", 0, 0, &hFile))
+        return "";
+
+    char buffer[0x000FFFFF];
+    DWORD chars_read;
+    if (!CascReadFile(hFile, buffer, 0x000FFFFF, &chars_read))
+        return "";
+
+    return string(buffer, chars_read);
+}
+
 int main(int argc, char* argv[])
 {
 
-    if (argc < 2) {
-        cout << argv[0] << " Version " << W3JSON_VERSION_MAJOR << "." << W3JSON_VERSION_MINOR << "." << W3JSON_VERSION_PATCH << endl;
-        cout << "Usage: " << argv[0] << " <w3x-file>" << endl;
+    if (argc < 3) {
+        cout << argv[0] << " version " << W3JSON_VERSION_MAJOR << "." << W3JSON_VERSION_MINOR << "." << W3JSON_VERSION_PATCH << endl;
+        cout << "usage: " << argv[0] << " <w3x-file>" << " <warcraft-iii-dir" << endl;
+        cout << "       " << argv[0] << " <w3x-file>" << " <gamedata.txt" << endl;
         return 1;
     }
 
     char* archive_file_name = argv[1];
+
+    string triggerdata_txt = extract_triggerdata_txt_from_casc(argv[2]);
+    if (triggerdata_txt.compare("") == 0) {
+        triggerdata_txt = string(argv[2]);
+    }
 
     /** Read W3X Header */
     if(!read_and_interpret_w3x_header(archive_file_name)) {

@@ -31,6 +31,7 @@ target_include_directories(w3x_t PUBLIC
 
 target_link_libraries(w3x_t
     storm
+    casc
     z
     bz2
     stdc++fs
