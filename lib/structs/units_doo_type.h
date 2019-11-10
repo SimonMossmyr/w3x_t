@@ -14,8 +14,7 @@ struct units_doo_type {
         bool visible;
         bool solid;
         uint32_t owning_player;
-        byte_type unknown_1;
-        byte_type unknown_2;
+        unsigned short unknown_1;
         uint32_t hit_points;
         uint32_t mana_points;
         uint32_t dropped_item_sets_id;
@@ -74,5 +73,5 @@ struct units_doo_type {
         uint32_t id;
     };
     vector<unit_type> units;
-    byte_type unknown;
+    byte_type unknown_2;
 };

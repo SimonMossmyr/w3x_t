@@ -26,8 +26,7 @@ units_doo_type units_doo_to_struct(string contents) {
         udoo.units[i].solid = (bool)(flags & 2);
 
         udoo.units[i].owning_player = read_int(&ss);
-        udoo.units[i].unknown_1 = read_byte(&ss);
-        udoo.units[i].unknown_2 = read_byte(&ss);
+        udoo.units[i].unknown_1 = read_ushort(&ss);
         udoo.units[i].hit_points = read_int(&ss);
         udoo.units[i].mana_points = read_int(&ss);
 
@@ -98,7 +97,7 @@ units_doo_type units_doo_to_struct(string contents) {
         udoo.units[i].id = read_int(&ss);
     }
 
-    udoo.unknown = read_byte(&ss);
+    udoo.unknown_2 = read_byte(&ss);
 
     if (!ss.eof()) {
         throw DataStillExistsException("war3mapUnits.doo");
