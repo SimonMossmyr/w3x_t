@@ -31,7 +31,7 @@ float read_float(stringstream* ss) {
     return i;
 }
 
-unsigned short read_short(stringstream* ss) {
+unsigned short read_ushort(stringstream* ss) {
     short i;
     ss->read(reinterpret_cast<char *>(&i), sizeof(i));
     return i;

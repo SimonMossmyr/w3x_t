@@ -13,7 +13,7 @@ wpm_type wpm_to_struct(string contents) {
     int number_of_pixels = wpm.path_map_width*wpm.path_map_height;
     wpm.path_pixels.resize(number_of_pixels);
     for (int i = 0; i < number_of_pixels; i++) {
-        short tile_flags = read_short(&ss);
+        short tile_flags = read_ushort(&ss);
 
         wpm.path_pixels[i].walk = (bool)(tile_flags & 0x02);
         wpm.path_pixels[i].fly = (bool)(tile_flags & 0x04);

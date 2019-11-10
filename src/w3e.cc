@@ -32,9 +32,9 @@ w3e_type w3e_to_struct(string contents) {
     /** Tilepoint data */
     w3e.tilepoints.resize(w3e.map_width_plus_one*w3e.map_height_plus_one);
     for (int i = 0; i < w3e.map_width_plus_one*w3e.map_height_plus_one; i++) {
-        w3e.tilepoints[i].ground_height = read_short(&ss);
+        w3e.tilepoints[i].ground_height = read_ushort(&ss);
 
-        short water_height_and_boundary_flag = read_short(&ss);
+        short water_height_and_boundary_flag = read_ushort(&ss);
         w3e.tilepoints[i].water_height = water_height_and_boundary_flag & 0x7FFF; // lowest 15 bits
         w3e.tilepoints[i].flag.boundary_1 = (bool)(water_height_and_boundary_flag & 0x8000); // highest bit;
         
