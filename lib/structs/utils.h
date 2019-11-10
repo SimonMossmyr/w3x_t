@@ -13,7 +13,7 @@ struct DataStillExistsException : public exception {
         string message;
     public:
         DataStillExistsException(string file_name) {
-            message = file_name + " still contains data after being processed. Either file is corrupt or uint32_terpreter is incorrect.";
+            message = file_name + " still contains data after being processed. Either file is corrupt or interpreter is incorrect.";
         }
         const char* what() const throw () {
             return message.c_str();

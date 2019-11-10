@@ -28,9 +28,9 @@ using namespace std;
 /** Utils */
 string          read_string (stringstream* ss);
 string          read_chars  (stringstream* ss, int amount);
-uint32_t        read_int    (stringstream* ss);
+int        read_int    (stringstream* ss);
 float           read_float  (stringstream* ss);
-unsigned short  read_ushort (stringstream* ss);
+short  read_short (stringstream* ss);
 char            read_char   (stringstream* ss);
 byte_type       read_byte   (stringstream* ss);
 

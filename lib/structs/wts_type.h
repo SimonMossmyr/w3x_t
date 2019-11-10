@@ -1,7 +1,7 @@
 #include "utils.h"
 
 struct trigger_string_type {
-    uint32_t number;
+    int number;
     string content;
 };
 

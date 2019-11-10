@@ -1,18 +1,18 @@
 #include "utils.h"
 
 struct modification_table_type {
-    uint32_t n_objects;
+    int n_objects;
     struct object_type {
         string original_id;
         string new_id;
-        uint32_t n_modifications;
+        int n_modifications;
         struct modification_type {
             string id;
-            uint32_t type;
-            uint32_t level;
-            uint32_t column;
+            int type;
+            int level;
+            int column;
             struct value_type {
-                uint32_t integer;
+                int integer;
                 float real;
                 string str;
             } value;
@@ -24,7 +24,7 @@ struct modification_table_type {
 };
 
 struct w3o_type {
-    uint32_t file_version;
+    int file_version;
     modification_table_type original_table;
     modification_table_type custom_table;
     byte_type unknown;

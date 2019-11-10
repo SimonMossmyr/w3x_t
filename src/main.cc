@@ -83,8 +83,8 @@ int main(int argc, char* argv[])
     }
     listfile_contents[size_of_listfile] = '\0';
 
-    uint32_t map_width;
-    uint32_t map_height;
+    int map_width;
+    int map_height;
 
     w3e_type w3e;
     shd_type shd;

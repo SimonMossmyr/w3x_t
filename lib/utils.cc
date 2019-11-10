@@ -19,7 +19,7 @@ string read_chars(stringstream* ss, int amount) {
     return string(buffer, amount);
 }
 
-uint32_t read_int(stringstream* ss) {
+int read_int(stringstream* ss) {
     int i;
     ss->read(reinterpret_cast<char *>(&i), sizeof(i));
     return i;
@@ -31,7 +31,7 @@ float read_float(stringstream* ss) {
     return i;
 }
 
-unsigned short read_ushort(stringstream* ss) {
+short read_short(stringstream* ss) {
     short i;
     ss->read(reinterpret_cast<char *>(&i), sizeof(i));
     return i;
