@@ -1,22 +1,4 @@
-#include "w3x_t.h"
-
-#define DEFAULT_CHAR_BUFFER_SIZE 512
-
-/** Map settings flag indices */
-
-using namespace std;
-
-struct ArchiveFileDoesNotExistException : public exception {
-    private:
-        string message;
-    public:
-        ArchiveFileDoesNotExistException(string file_name) {
-            message = file_name + " does not exist.";
-        }
-        const char* what() const throw () {
-            return message.c_str();
-        }
-};
+#include "main.h"
 
 int read_and_interpret_w3x_header(char* archive_file_name) {
     ifstream ifs;
