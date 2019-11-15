@@ -13,6 +13,8 @@ set(LIB_FILES
     lib/w3i.cc
     lib/wts.cc
     lib/w3o.cc
+    lib/wtg.cc
+    lib/trigger_data.cc
 )
 
 set(SRC_FILES

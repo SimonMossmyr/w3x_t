@@ -70,9 +70,9 @@ int main(int argc, char* argv[])
 
     char* archive_file_name = argv[1];
 
-    string triggerdata_txt = extract_triggerdata_txt_from_casc(argv[2]);
-    if (triggerdata_txt.compare("") == 0) {
-        triggerdata_txt = string(argv[2]);
+    string trigger_data_txt = extract_triggerdata_txt_from_casc(argv[2]);
+    if (trigger_data_txt.compare("") == 0) {
+        trigger_data_txt = string(argv[2]);
     }
 
     /** Read W3X Header */
@@ -125,6 +125,7 @@ int main(int argc, char* argv[])
     w3o_type w3a;
     w3o_type w3h;
     w3o_type w3q;
+    trigger_data_type trigger_data;
 
     try {
         w3e = w3e_to_struct(get_contents_from_mpq_file(hMpq, "war3map.w3e"));
@@ -221,6 +222,13 @@ int main(int argc, char* argv[])
 
     try {
         w3q = w3o_to_struct(get_contents_from_mpq_file(hMpq, "war3map.w3q"), true, "war3map.w3q");
+    }
+    catch (exception& s) {
+        warning(s.what());
+    }
+
+    try {
+        trigger_data = trigger_data_to_struct(trigger_data_txt);
     }
     catch (exception& s) {
         warning(s.what());

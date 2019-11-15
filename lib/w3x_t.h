@@ -13,6 +13,8 @@
 #include "structs/w3i_type.h"
 #include "structs/wts_type.h"
 #include "structs/w3o_type.h"
+#include "structs/wtg_type.h"
+#include "structs/trigger_data_type.h"
 
 using namespace std;
 
@@ -28,12 +30,11 @@ using namespace std;
 /** Utils */
 string          read_string (stringstream* ss);
 string          read_chars  (stringstream* ss, int amount);
-int        read_int    (stringstream* ss);
+int             read_int    (stringstream* ss);
 float           read_float  (stringstream* ss);
-short  read_short (stringstream* ss);
+short           read_short  (stringstream* ss);
 char            read_char   (stringstream* ss);
 byte_type       read_byte   (stringstream* ss);
-
 
 /** Converters */
 header_type             header_to_struct        (string header_content);
@@ -46,5 +47,7 @@ w3i_type                w3i_to_struct           (string contents);
 wts_type                wts_to_struct           (string contents);
 modification_table_type read_modification_table (stringstream* ss, bool is_doodad_ability_or_upgrade);
 w3o_type                w3o_to_struct           (string contents, bool is_doodad_ability_or_upgrade, string file_name);
-
-/** main */
+wtg_type                wtg_to_struct           (string content, string triggerdata);
+vector<trigger_category_type> read_categories(stringstream* ss);
+vector<trigger_action_or_event_type>     read_events             (stringstream* ss);
+trigger_data_type       trigger_data_to_struct  (string contents);
