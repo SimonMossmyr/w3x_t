@@ -128,6 +128,7 @@ int main(int argc, char* argv[])
     trigger_data_type trigger_data;
     wtg_type wtg;
     w3c_type w3c;
+    w3r_type w3r;
 
     try {
         w3e = w3e_to_struct(get_contents_from_mpq_file(hMpq, "war3map.w3e"));
@@ -236,15 +237,24 @@ int main(int argc, char* argv[])
         warning(s.what());
     }
 
+    /*
     try {
         wtg = wtg_to_struct(get_contents_from_mpq_file(hMpq, "war3map.wtg"), trigger_data);
     }
     catch (exception& s) {
         warning(s.what());
     }
+    */
 
     try {
-        w3c = w3c_to_struct(get_contents_from_mpq_file(hMpq, "war3map.wtg"));
+        w3c = w3c_to_struct(get_contents_from_mpq_file(hMpq, "war3map.w3c"));
+    }
+    catch (exception& s) {
+        warning(s.what());
+    }
+
+    try {
+        w3r = w3r_to_struct(get_contents_from_mpq_file(hMpq, "war3map.w3r"));
     }
     catch (exception& s) {
         warning(s.what());

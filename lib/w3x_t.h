@@ -16,6 +16,7 @@
 #include "structs/wtg_type.h"
 #include "structs/trigger_data_type.h"
 #include "structs/w3c_type.h"
+#include "structs/w3r_type.h"
 
 using namespace std;
 
@@ -51,3 +52,4 @@ w3o_type            w3o_to_struct           (string contents, bool is_doodad_abi
 wtg_type            wtg_to_struct           (string content, trigger_data_type trigger_data);
 trigger_data_type   trigger_data_to_struct  (string contents);
 w3c_type            w3c_to_struct           (string contents);
+w3r_type            w3r_to_struct           (string contents);
