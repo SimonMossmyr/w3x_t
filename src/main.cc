@@ -131,6 +131,7 @@ int main(int argc, char* argv[])
     w3r_type w3r;
     w3s_type w3s;
     wct_type wct;
+    imp_type imp;
 
     try {
         w3e = w3e_to_struct(get_contents_from_mpq_file(hMpq, "war3map.w3e"));
@@ -271,6 +272,13 @@ int main(int argc, char* argv[])
 
     try {
         wct = wct_to_struct(get_contents_from_mpq_file(hMpq, "war3map.wct"));
+    }
+    catch (exception& s) {
+        warning(s.what());
+    }
+
+    try {
+        imp = imp_to_struct(get_contents_from_mpq_file(hMpq, "war3map.imp"));
     }
     catch (exception& s) {
         warning(s.what());

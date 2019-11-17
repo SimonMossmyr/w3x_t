@@ -19,6 +19,7 @@
 #include "structs/w3r_type.h"
 #include "structs/w3s_type.h"
 #include "structs/wct_type.h"
+#include "structs/imp_type.h"
 
 using namespace std;
 
@@ -57,3 +58,4 @@ w3c_type            w3c_to_struct           (string contents);
 w3r_type            w3r_to_struct           (string contents);
 w3s_type            w3s_to_struct           (string contents);
 wct_type            wct_to_struct           (string contents);
+imp_type            imp_to_struct           (string contents);
