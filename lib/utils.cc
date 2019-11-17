@@ -25,6 +25,10 @@ int read_int(stringstream* ss) {
     return i;
 }
 
+bool read_bool(stringstream* ss) {
+    return (bool)read_int(ss);
+}
+
 float read_float(stringstream* ss) {
     float i;
     ss->read(reinterpret_cast<char *>(&i), sizeof(i));

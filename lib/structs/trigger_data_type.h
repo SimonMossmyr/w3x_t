@@ -66,20 +66,19 @@ struct default_trigger_categories_type {
     vector<string> categories;
 };
 
-struct trigger_type {
-    string name;
-    string comment;
-    int category_number;
-    int n_events;
-    vector<string> events;
-    int n_conditions;
-    vector<string> conditions;
-    int n_actions;
-    vector<string> actions;
-};
-
 struct default_triggers_type {
     int n_triggers;
+    struct trigger_type {
+        string name;
+        string comment;
+        int category_number;
+        int n_events;
+        vector<string> events;
+        int n_conditions;
+        vector<string> conditions;
+        int n_actions;
+        vector<string> actions;
+    };
     vector<trigger_type> triggers;
 };
 

@@ -1,4 +1,5 @@
 #include "w3x_t.h"
+#include <algorithm>
 
 #define TRIGGER_CATEGORIES 0
 #define TRIGGER_TYPES 1
@@ -133,7 +134,13 @@ trigger_data_type trigger_data_to_struct(string contents) {
                         trigger_action_or_event_type trigger_events;
                         trigger_events.first_game_version = stoi(find_next_token_and_erase(&line, delimiter));
                         while (line.length() != 0) {
-                            trigger_events.argument_types.push_back(find_next_token_and_erase(&line, delimiter));
+                            string token = find_next_token_and_erase(&line, delimiter);
+                            while (token[token.length() - 1] == '\r' || token[token.length() - 1] == '\n') {
+                                token.erase(token.length() - 1);
+                            }
+                            trigger_events.argument_types.push_back(token);
+                            
+
                         }
                         while (true) {
                             getline(ss, line);
@@ -166,7 +173,11 @@ trigger_data_type trigger_data_to_struct(string contents) {
                         trigger_condition_type trigger_conditions;
                         trigger_conditions.first_game_version = stoi(find_next_token_and_erase(&line, delimiter));
                         while (line.length() != 0) {
-                            trigger_conditions.argument_types.push_back(find_next_token_and_erase(&line, delimiter));
+                            string token = find_next_token_and_erase(&line, delimiter);
+                            while (token[token.length() - 1] == '\r' || token[token.length() - 1] == '\n') {
+                                token.erase(token.length() - 1);
+                            }
+                            trigger_conditions.argument_types.push_back(token);
                         }
                         while (true) {
                             getline(ss, line);
@@ -202,7 +213,11 @@ trigger_data_type trigger_data_to_struct(string contents) {
                         trigger_action_or_event_type trigger_actions;
                         trigger_actions.first_game_version = stoi(find_next_token_and_erase(&line, delimiter));
                         while (line.length() != 0) {
-                            trigger_actions.argument_types.push_back(find_next_token_and_erase(&line, delimiter));
+                            string token = find_next_token_and_erase(&line, delimiter);
+                            while (token[token.length() - 1] == '\r' || token[token.length() - 1] == '\n') {
+                                token.erase(token.length() - 1);
+                            }
+                            trigger_actions.argument_types.push_back(token);
                         }
                         while (true) {
                             getline(ss, line);
@@ -237,7 +252,11 @@ trigger_data_type trigger_data_to_struct(string contents) {
                         trigger_call.can_be_used_in_events = (bool)stoi(find_next_token_and_erase(&line, delimiter));
                         trigger_call.return_type = find_next_token_and_erase(&line, delimiter);
                         while (line.length() != 0) {
-                            trigger_call.argument_types.push_back(find_next_token_and_erase(&line, delimiter));
+                            string token = find_next_token_and_erase(&line, delimiter);
+                            while (token[token.length() - 1] == '\r' || token[token.length() - 1] == '\n') {
+                                token.erase(token.length() - 1);
+                            }
+                            trigger_call.argument_types.push_back(token);
                         }
                         while (true) {
                             getline(ss, line);
@@ -335,9 +354,6 @@ trigger_data_type trigger_data_to_struct(string contents) {
                     }
                     break;
             }
-        }
-        else {
-            
         }
     }
 

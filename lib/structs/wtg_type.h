@@ -9,10 +9,10 @@ struct parameter_type {
         string name;
         bool begin_parameters;
         vector<parameter_type> parameters;
-    };
-    int unknown;
+        int end_function;
+    } sub_parameter;
     bool is_array;
-    int array_index;
+    parameter_type* array_index_parameter;
 };
 
 struct eca_type {
@@ -51,6 +51,7 @@ struct wtg_type {
     struct trigger_type {
         string name;
         string description;
+        bool is_comment;
         bool is_enabled;
         bool is_custom;
         bool is_initially_off;
