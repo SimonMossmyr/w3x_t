@@ -163,5 +163,11 @@ wtg_type wtg_to_struct(string content, trigger_data_type trigger_data) {
         wtg.triggers[i].ecas = read_ecas(&ss, wtg.triggers[i].n_eca, false, trigger_data);
     }
 
+    wtg.unknown_2 = read_byte(&ss);
+
+    if (!ss.eof()) {
+        throw DataStillExistsException("war3map.wtg");
+    }
+
     return wtg;
 }

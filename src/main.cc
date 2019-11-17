@@ -127,6 +127,7 @@ int main(int argc, char* argv[])
     w3o_type w3q;
     trigger_data_type trigger_data;
     wtg_type wtg;
+    w3c_type w3c;
 
     try {
         w3e = w3e_to_struct(get_contents_from_mpq_file(hMpq, "war3map.w3e"));
@@ -236,19 +237,14 @@ int main(int argc, char* argv[])
     }
 
     try {
-        /*
-        stringstream ss(get_contents_from_mpq_file(hMpq, "war3map.wtg"));
-        while (!ss.eof()) {
-            char c = read_char(&ss);
-            if ((int)c < 16) {
-                cout << "0";
-            }
-            cout << hex << (int)c;
-        }
-        cout << endl;
-        exit(1);
-        */
         wtg = wtg_to_struct(get_contents_from_mpq_file(hMpq, "war3map.wtg"), trigger_data);
+    }
+    catch (exception& s) {
+        warning(s.what());
+    }
+
+    try {
+        w3c = w3c_to_struct(get_contents_from_mpq_file(hMpq, "war3map.wtg"));
     }
     catch (exception& s) {
         warning(s.what());

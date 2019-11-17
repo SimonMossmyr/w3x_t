@@ -61,4 +61,5 @@ struct wtg_type {
         vector<eca_type> ecas;
     };
     vector<trigger_type> triggers;
+    byte_type unknown_2;
 };

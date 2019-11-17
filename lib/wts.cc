@@ -31,5 +31,9 @@ wts_type wts_to_struct(string contents) {
         }
     }
 
+    if (!ss.eof()) {
+        throw DataStillExistsException("war3map.wts");
+    }
+
     return wts;
 }

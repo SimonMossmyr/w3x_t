@@ -15,6 +15,7 @@ set(LIB_FILES
     lib/w3o.cc
     lib/wtg.cc
     lib/trigger_data.cc
+    lib/w3c.cc
 )
 
 set(SRC_FILES
