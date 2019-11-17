@@ -18,6 +18,7 @@ set(LIB_FILES
     lib/w3c.cc
     lib/w3r.cc
     lib/w3s.cc
+    lib/wct.cc
 )
 
 set(SRC_FILES
