@@ -9,6 +9,18 @@
 #define ECA_CONDITION 1
 #define ECA_ACTION 2
 
+struct ECANotDefinedException : public exception {
+    private:
+        string message;
+    public:
+        ECANotDefinedException(string eca_name) {
+            message = "ECA function \"" + eca_name + "\" in war3map.wtg could not be found in TriggerData.txt.";
+        }
+        const char* what() const throw () {
+            return message.c_str();
+        }
+};
+
 bool string_counts_as_parameter(string value) {    
     return
         value.compare("0") != 0 &&
@@ -52,7 +64,7 @@ int find_n_parameters(string name, trigger_data_type trigger_data) {
         }
     }
     else {
-        exit(1);
+        throw ECANotDefinedException(name);
     }
 
     return n_parameters;
