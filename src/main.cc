@@ -129,6 +129,7 @@ int main(int argc, char* argv[])
     wtg_type wtg;
     w3c_type w3c;
     w3r_type w3r;
+    w3s_type w3s;
 
     try {
         w3e = w3e_to_struct(get_contents_from_mpq_file(hMpq, "war3map.w3e"));
@@ -255,6 +256,13 @@ int main(int argc, char* argv[])
 
     try {
         w3r = w3r_to_struct(get_contents_from_mpq_file(hMpq, "war3map.w3r"));
+    }
+    catch (exception& s) {
+        warning(s.what());
+    }
+
+    try {
+        w3s = w3s_to_struct(get_contents_from_mpq_file(hMpq, "war3map.w3s"));
     }
     catch (exception& s) {
         warning(s.what());

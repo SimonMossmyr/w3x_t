@@ -17,6 +17,7 @@
 #include "structs/trigger_data_type.h"
 #include "structs/w3c_type.h"
 #include "structs/w3r_type.h"
+#include "structs/w3s_type.h"
 
 using namespace std;
 
@@ -53,3 +54,4 @@ wtg_type            wtg_to_struct           (string content, trigger_data_type t
 trigger_data_type   trigger_data_to_struct  (string contents);
 w3c_type            w3c_to_struct           (string contents);
 w3r_type            w3r_to_struct           (string contents);
+w3s_type            w3s_to_struct           (string contents);
