@@ -118,6 +118,7 @@ int main(int argc, char* argv[])
     units_doo_type udoo;
     w3i_type w3i;
     wts_type wts;
+    mmp_type mmp;
     w3o_type w3u;
     w3o_type w3t;
     w3o_type w3b;
@@ -179,6 +180,13 @@ int main(int argc, char* argv[])
 
     try {
         wts = wts_to_struct(get_contents_from_mpq_file(hMpq, "war3map.wts"));
+    }
+    catch (exception& s) {
+        warning(s.what());
+    }
+
+    try {
+        mmp = mmp_to_struct(get_contents_from_mpq_file(hMpq, "war3map.mmp"));
     }
     catch (exception& s) {
         warning(s.what());

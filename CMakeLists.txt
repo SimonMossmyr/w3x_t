@@ -12,6 +12,7 @@ set(LIB_FILES
     lib/units_doo.cc
     lib/w3i.cc
     lib/wts.cc
+    lib/mmp.cc
     lib/w3o.cc
     lib/wtg.cc
     lib/trigger_data.cc

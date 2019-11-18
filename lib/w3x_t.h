@@ -12,6 +12,7 @@
 #include "structs/units_doo_type.h"
 #include "structs/w3i_type.h"
 #include "structs/wts_type.h"
+#include "structs/mmp_type.h"
 #include "structs/w3o_type.h"
 #include "structs/wtg_type.h"
 #include "structs/trigger_data_type.h"
@@ -51,6 +52,7 @@ doo_type            doo_to_struct           (string contents);
 units_doo_type      units_doo_to_struct     (string contents);
 w3i_type            w3i_to_struct           (string contents);
 wts_type            wts_to_struct           (string contents);
+mmp_type            mmp_to_struct           (string contents);
 w3o_type            w3o_to_struct           (string contents, bool is_doodad_ability_or_upgrade, string file_name);
 wtg_type            wtg_to_struct           (string content, trigger_data_type trigger_data);
 trigger_data_type   trigger_data_to_struct  (string contents);
