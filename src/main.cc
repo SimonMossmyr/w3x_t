@@ -1,21 +1,5 @@
 #include "main.h"
 
-int read_and_interpret_w3x_header(char* archive_file_name) {
-    ifstream ifs;
-    ifs.open(archive_file_name);
-    if (!ifs.good()) {
-        return 0;
-    }
-
-    char header_content[513];
-    ifs.read(header_content, 512);
-    header_content[512] = '\0';
-
-    header_type header = header_to_struct(string(header_content, 512));
-
-    return 1;
-}
-
 string get_contents_from_mpq_file(HANDLE hMpq, string file_name) {
     HANDLE file_handle;
     if (!SFileOpenFileEx(hMpq, file_name.c_str(), SFILE_OPEN_FROM_MPQ, &file_handle)) {
@@ -73,11 +57,6 @@ int main(int argc, char* argv[])
     string trigger_data_txt = extract_triggerdata_txt_from_casc(argv[2]);
     if (trigger_data_txt.compare("") == 0) {
         trigger_data_txt = string(argv[2]);
-    }
-
-    /** Read W3X Header */
-    if(!read_and_interpret_w3x_header(archive_file_name)) {
-        error("Could not read archive header.");
     }
 
     /** Open w3x as MPQ archive */

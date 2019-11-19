@@ -4,7 +4,6 @@ project(w3x_t VERSION 0.0.0)
 
 set(LIB_FILES
     lib/utils.cc
-    lib/header.cc
     lib/w3e.cc
     lib/shd.cc
     lib/wpm.cc

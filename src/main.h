@@ -18,7 +18,6 @@ struct ArchiveFileDoesNotExistException : public exception {
 
 void    warning                             (string message);
 void    error                               (string message);
-int     read_and_interpret_w3x_header       (char* archive_file_name);
 string  get_contents_from_mpq_file          (HANDLE hMpq, string file_name);
 int     main                                (int argc, char* argv[]);
 string  extract_triggerdata_txt_from_casc   (char* warcraft_iii_path);

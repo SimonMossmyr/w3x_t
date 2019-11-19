@@ -4,7 +4,6 @@
 #include <sstream>
 #include <string>
 
-#include "structs/header_type.h"
 #include "structs/w3e_type.h"
 #include "structs/shd_type.h"
 #include "structs/wpm_type.h"
@@ -44,7 +43,6 @@ char            read_char   (stringstream* ss);
 byte_type       read_byte   (stringstream* ss);
 
 /** Converters */
-header_type         header_to_struct        (string header_content);
 w3e_type            w3e_to_struct           (string contents);
 shd_type            shd_to_struct           (string contents, int map_width, int map_height);
 wpm_type            wpm_to_struct           (string contents);
