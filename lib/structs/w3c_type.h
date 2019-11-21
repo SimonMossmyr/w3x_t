@@ -14,8 +14,8 @@ struct w3c_type {
         float field_of_view;
         float far_clipping;
         float unknown;
-        string name;
+        std::string name;
     };
-    vector<camera_type> cameras;
+    std::vector<camera_type> cameras;
     byte_type unknown;
 };

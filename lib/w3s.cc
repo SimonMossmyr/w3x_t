@@ -1,7 +1,7 @@
 #include "w3x_t.h"
 
-w3s_type w3s_to_struct(string contents) {
-    stringstream ss(contents);
+w3s_type w3s_to_struct(std::string contents) {
+    std::stringstream ss(contents);
     w3s_type w3s;
 
     w3s.format_version = read_int(&ss);

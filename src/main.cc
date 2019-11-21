@@ -1,6 +1,6 @@
 #include "main.h"
 
-string get_contents_from_mpq_file(HANDLE hMpq, string file_name) {
+std::string get_contents_from_mpq_file(HANDLE hMpq, std::string file_name) {
     HANDLE file_handle;
     if (!SFileOpenFileEx(hMpq, file_name.c_str(), SFILE_OPEN_FROM_MPQ, &file_handle)) {
         throw ArchiveFileDoesNotExistException(file_name);
@@ -20,10 +20,10 @@ string get_contents_from_mpq_file(HANDLE hMpq, string file_name) {
         exit(1);
     }
     //file_contents[size_of_file] = '\0';
-    return string(file_contents, number_of_chars_actually_read);
+    return std::string(file_contents, number_of_chars_actually_read);
 }
 
-string extract_triggerdata_txt_from_casc(char* warcraft_iii_path) {
+std::string extract_triggerdata_txt_from_casc(char* warcraft_iii_path) {
     HANDLE hStorage = NULL;        // Open storage handle
     HANDLE hFile  = NULL;          // Storage file handle
     HANDLE handle = NULL;          // Disk file handle
@@ -39,24 +39,24 @@ string extract_triggerdata_txt_from_casc(char* warcraft_iii_path) {
     if (!CascReadFile(hFile, buffer, 0x000FFFFF, &chars_read))
         return "";
 
-    return string(buffer, chars_read);
+    return std::string(buffer, chars_read);
 }
 
 int main(int argc, char* argv[])
 {
 
     if (argc < 3) {
-        cout << argv[0] << " version " << W3JSON_VERSION_MAJOR << "." << W3JSON_VERSION_MINOR << "." << W3JSON_VERSION_PATCH << endl;
-        cout << "usage: " << argv[0] << " <w3x-file>" << " <warcraft-iii-dir" << endl;
-        cout << "       " << argv[0] << " <w3x-file>" << " <gamedata.txt" << endl;
+        std::cout << argv[0] << " version " << W3JSON_VERSION_MAJOR << "." << W3JSON_VERSION_MINOR << "." << W3JSON_VERSION_PATCH << std::endl;
+        std::cout << "usage: " << argv[0] << " <w3x-file>" << " <warcraft-iii-dir" << std::endl;
+        std::cout << "       " << argv[0] << " <w3x-file>" << " <gamedata.txt" << std::endl;
         return 1;
     }
 
     char* archive_file_name = argv[1];
 
-    string trigger_data_txt = extract_triggerdata_txt_from_casc(argv[2]);
+    std::string trigger_data_txt = extract_triggerdata_txt_from_casc(argv[2]);
     if (trigger_data_txt.compare("") == 0) {
-        trigger_data_txt = string(argv[2]);
+        trigger_data_txt = std::string(argv[2]);
     }
 
     /** Open w3x as MPQ archive */
@@ -118,112 +118,112 @@ int main(int argc, char* argv[])
         map_width = w3e.map_width_plus_one - 1;
         map_height = w3e.map_height_plus_one - 1;
     }
-    catch (exception& s) {
+    catch (std::exception& s) {
         warning(s.what());
     }
 
     try {
         shd = shd_to_struct(get_contents_from_mpq_file(hMpq, "war3map.shd"), map_width, map_height);
     }
-    catch (exception& s) {
+    catch (std::exception& s) {
         warning(s.what());
     }
 
     try {
         wpm = wpm_to_struct(get_contents_from_mpq_file(hMpq, "war3map.wpm"));
     }
-    catch (exception& s) {
+    catch (std::exception& s) {
         warning(s.what());
     }
 
     try {
         doo = doo_to_struct(get_contents_from_mpq_file(hMpq, "war3map.doo"));
     }
-    catch (exception& s) {
+    catch (std::exception& s) {
         warning(s.what());
     }
 
     try {
         udoo = units_doo_to_struct(get_contents_from_mpq_file(hMpq, "war3mapUnits.doo"));
     }
-    catch (exception& s) {
+    catch (std::exception& s) {
         warning(s.what());
     }
 
     try {
         w3i = w3i_to_struct(get_contents_from_mpq_file(hMpq, "war3map.w3i"));
     }
-    catch (exception& s) {
+    catch (std::exception& s) {
         warning(s.what());
     }
 
     try {
         wts = wts_to_struct(get_contents_from_mpq_file(hMpq, "war3map.wts"));
     }
-    catch (exception& s) {
+    catch (std::exception& s) {
         warning(s.what());
     }
 
     try {
         mmp = mmp_to_struct(get_contents_from_mpq_file(hMpq, "war3map.mmp"));
     }
-    catch (exception& s) {
+    catch (std::exception& s) {
         warning(s.what());
     }
 
     try {
         w3u = w3o_to_struct(get_contents_from_mpq_file(hMpq, "war3map.w3u"), false, "war3map.w3u");
     }
-    catch (exception& s) {
+    catch (std::exception& s) {
         warning(s.what());
     }
 
     try {
         w3t = w3o_to_struct(get_contents_from_mpq_file(hMpq, "war3map.w3t"), false, "war3map.w3t");
     }
-    catch (exception& s) {
+    catch (std::exception& s) {
         warning(s.what());
     }
 
     try {
         w3b = w3o_to_struct(get_contents_from_mpq_file(hMpq, "war3map.w3b"), false, "war3map.w3b");
     }
-    catch (exception& s) {
+    catch (std::exception& s) {
         warning(s.what());
     }
 
     try {
         w3d = w3o_to_struct(get_contents_from_mpq_file(hMpq, "war3map.w3d"), true, "war3map.w3d");
     }
-    catch (exception& s) {
+    catch (std::exception& s) {
         warning(s.what());
     }
 
     try {
         w3a = w3o_to_struct(get_contents_from_mpq_file(hMpq, "war3map.w3a"), true, "war3map.w3a");
     }
-    catch (exception& s) {
+    catch (std::exception& s) {
         warning(s.what());
     }
 
     try {
         w3h = w3o_to_struct(get_contents_from_mpq_file(hMpq, "war3map.w3h"), false, "war3map.w3h");
     }
-    catch (exception& s) {
+    catch (std::exception& s) {
         warning(s.what());
     }
 
     try {
         w3q = w3o_to_struct(get_contents_from_mpq_file(hMpq, "war3map.w3q"), true, "war3map.w3q");
     }
-    catch (exception& s) {
+    catch (std::exception& s) {
         warning(s.what());
     }
 
     try {
         trigger_data = trigger_data_to_struct(trigger_data_txt);
     }
-    catch (exception& s) {
+    catch (std::exception& s) {
         warning(s.what());
     }
 
@@ -231,7 +231,7 @@ int main(int argc, char* argv[])
     try {
         wtg = wtg_to_struct(get_contents_from_mpq_file(hMpq, "war3map.wtg"), trigger_data);
     }
-    catch (exception& s) {
+    catch (std::exception& s) {
         warning(s.what());
     }
     */
@@ -239,35 +239,35 @@ int main(int argc, char* argv[])
     try {
         w3c = w3c_to_struct(get_contents_from_mpq_file(hMpq, "war3map.w3c"));
     }
-    catch (exception& s) {
+    catch (std::exception& s) {
         warning(s.what());
     }
 
     try {
         w3r = w3r_to_struct(get_contents_from_mpq_file(hMpq, "war3map.w3r"));
     }
-    catch (exception& s) {
+    catch (std::exception& s) {
         warning(s.what());
     }
 
     try {
         w3s = w3s_to_struct(get_contents_from_mpq_file(hMpq, "war3map.w3s"));
     }
-    catch (exception& s) {
+    catch (std::exception& s) {
         warning(s.what());
     }
 
     try {
         wct = wct_to_struct(get_contents_from_mpq_file(hMpq, "war3map.wct"));
     }
-    catch (exception& s) {
+    catch (std::exception& s) {
         warning(s.what());
     }
 
     try {
         imp = imp_to_struct(get_contents_from_mpq_file(hMpq, "war3map.imp"));
     }
-    catch (exception& s) {
+    catch (std::exception& s) {
         warning(s.what());
     }
 

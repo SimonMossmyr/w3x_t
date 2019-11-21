@@ -2,13 +2,13 @@
 
 struct parameter_type {
     int type;
-    string value;
+    std::string value;
     bool has_sub_parameters;
     struct sub_parameter_type {
         int type;
-        string name;
+        std::string name;
         bool begin_parameters;
-        vector<parameter_type> parameters;
+        std::vector<parameter_type> parameters;
         int end_function;
     } sub_parameter;
     bool is_array;
@@ -18,39 +18,39 @@ struct parameter_type {
 struct eca_type {
     int type;
     int group_for_if_then_else;
-    string name;
+    std::string name;
     bool is_enabled;
-    vector<parameter_type> parameters;
+    std::vector<parameter_type> parameters;
     int n_child_ecas;
-    vector<eca_type> child_ecas;
+    std::vector<eca_type> child_ecas;
 };
 
 struct wtg_type {
-    string file_id;
+    std::string file_id;
     int format_version;
     int n_trigger_categories;
     struct trigger_category_type {
         int id;
-        string name;
+        std::string name;
         bool is_comment;
     };
-    vector<trigger_category_type> trigger_categories;
+    std::vector<trigger_category_type> trigger_categories;
     int unknown;
     int n_variables;
     struct variable_type {
-        string name;
-        string type;
+        std::string name;
+        std::string type;
         int unknown;
         bool is_array;
         int array_size;
         bool is_initialized;
-        string initial_value;
+        std::string initial_value;
     };
-    vector<variable_type> variables;
+    std::vector<variable_type> variables;
     int n_triggers;
     struct trigger_type {
-        string name;
-        string description;
+        std::string name;
+        std::string description;
         bool is_comment;
         bool is_enabled;
         bool is_custom;
@@ -58,8 +58,8 @@ struct wtg_type {
         bool run_on_initialization;
         int trigger_category_id;
         int n_eca;
-        vector<eca_type> ecas;
+        std::vector<eca_type> ecas;
     };
-    vector<trigger_type> triggers;
+    std::vector<trigger_type> triggers;
     byte_type unknown_2;
 };

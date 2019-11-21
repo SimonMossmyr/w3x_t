@@ -1,14 +1,14 @@
 #include "utils.h"
 
 struct w3e_type {
-    string file_id;
+    std::string file_id;
     int format_version;
     byte_type main_tileset;
     bool custom_tileset;
     int n_ground_tilesets;
-    vector<string> ground_tilesets;
+    std::vector<std::string> ground_tilesets;
     int n_cliff_tilesets;
-    vector<string> cliff_tilesets;
+    std::vector<std::string> cliff_tilesets;
     int map_width_plus_one;
     int map_height_plus_one;
     int center_offset_x;
@@ -29,6 +29,6 @@ struct w3e_type {
         int cliff_texture_variation;
         int layer_height;
     };
-    vector<tilepoint_type> tilepoints;
+    std::vector<tilepoint_type> tilepoints;
     byte_type unknown;
 };

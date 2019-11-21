@@ -1,12 +1,12 @@
 #include "utils.h"
 
 struct units_doo_type {
-    string file_id;
+    std::string file_id;
     int file_version;
     int file_sub_version;
     int n_units;
     struct unit_type {
-        string type_id;
+        std::string type_id;
         int variation;
         position_type position;
         float rotation_angle;
@@ -21,12 +21,12 @@ struct units_doo_type {
         struct dropped_item_set_type {
             int size;
             struct item_type {
-                string item_id;
+                std::string item_id;
                 int chance_to_be_dropped;
             };
-            vector<item_type> items;
+            std::vector<item_type> items;
         };
-        vector<dropped_item_set_type> dropped_item_sets;
+        std::vector<dropped_item_set_type> dropped_item_sets;
         int gold_amount;
         float target_acquisition;
         struct hero_stats_type {
@@ -38,16 +38,16 @@ struct units_doo_type {
         int n_items_in_inventory;
         struct item_in_inventory_type {
             int slot;
-            string type_id;
+            std::string type_id;
         };
-        vector<item_in_inventory_type> items_in_inventory;
+        std::vector<item_in_inventory_type> items_in_inventory;
         int n_modified_abilities;
         struct modified_ability_type {
-            string ability_id;
+            std::string ability_id;
             bool autocast_active;
             int level;
         };
-        vector<modified_ability_type> modified_abilities;
+        std::vector<modified_ability_type> modified_abilities;
         int random_flag;
         struct random_item_neutral_passive_type {
             byte_type level_high; // actually 24-bit number
@@ -62,15 +62,15 @@ struct units_doo_type {
         struct random_unit_from_custom_table_type {
             int n_units;
             struct table_entry_type {
-                string unit_id;
+                std::string unit_id;
                 int chance;
             };
-            vector<table_entry_type> table;
+            std::vector<table_entry_type> table;
         } random_unit_from_custom_table;
         int custom_color;
         int waygate;
         int id;
     };
-    vector<unit_type> units;
+    std::vector<unit_type> units;
     byte_type unknown;
 };

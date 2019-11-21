@@ -4,9 +4,9 @@ struct w3s_type {
     int format_version;
     int n_sounds;
     struct sound_type {
-        string id;
-        string file;
-        string eax_effect;
+        std::string id;
+        std::string file;
+        std::string eax_effect;
         struct flags_type {
             bool looping;
             bool is_3d;
@@ -31,6 +31,6 @@ struct w3s_type {
         float unknown_7;
         float unknown_8;
     };
-    vector<sound_type> sounds;
+    std::vector<sound_type> sounds;
     byte_type unknown;
 };

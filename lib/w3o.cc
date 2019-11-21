@@ -1,6 +1,6 @@
 #include "w3x_t.h"
 
-modification_table_type read_modification_table(stringstream* ss, bool is_doodad_ability_or_upgrade) {
+modification_table_type read_modification_table(std::stringstream* ss, bool is_doodad_ability_or_upgrade) {
     modification_table_type mod;
 
     mod.n_objects = read_int(ss);
@@ -36,8 +36,8 @@ modification_table_type read_modification_table(stringstream* ss, bool is_doodad
     return mod;
 }
 
-w3o_type w3o_to_struct(string contents, bool is_doodad_ability_or_upgrade, string file_name) {
-    stringstream ss(contents);
+w3o_type w3o_to_struct(std::string contents, bool is_doodad_ability_or_upgrade, std::string file_name) {
+    std::stringstream ss(contents);
     w3o_type w3o;
 
     w3o.file_version = read_int(&ss);

@@ -1,7 +1,7 @@
 #include "w3x_t.h"
 
-doo_type doo_to_struct(string contents) {
-    stringstream ss(contents);
+doo_type doo_to_struct(std::string contents) {
+    std::stringstream ss(contents);
     doo_type doo;
 
     doo.doodads.file_id = read_chars(&ss, 4);
@@ -15,7 +15,7 @@ doo_type doo_to_struct(string contents) {
         char type_id[5];
         ss.read(type_id, 4);
         type_id[4] = '\0';
-        doo.doodads.doodads[i].type_id = string(type_id);
+        doo.doodads.doodads[i].type_id = std::string(type_id);
 
         doo.doodads.doodads[i].variation = read_int(&ss);
         doo.doodads.doodads[i].position.x = read_float(&ss);
@@ -51,7 +51,7 @@ doo_type doo_to_struct(string contents) {
     /**
      * For whatever god damn reason I can't encapsulate the w3do_type extraction into its own function,
      * so here's 27 lines of code repetition. If you can encapsulate these two code blocks into a
-     * function that takes the stringstream as an argument, please do, but after four hours of
+     * function that takes the std::stringstream as an argument, please do, but after four hours of
      * this I give up.
      */
     doo.trees.file_id = read_chars(&ss, 4);
@@ -64,7 +64,7 @@ doo_type doo_to_struct(string contents) {
         char type_id[5];
         ss.read(type_id, 4);
         type_id[4] = '\0';
-        doo.trees.doodads[i].type_id = string(type_id);
+        doo.trees.doodads[i].type_id = std::string(type_id);
 
         doo.trees.doodads[i].variation = read_int(&ss);
         doo.trees.doodads[i].position.x = read_float(&ss);

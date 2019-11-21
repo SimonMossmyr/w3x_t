@@ -1,7 +1,7 @@
 #include "w3x_t.h"
 
-mmp_type mmp_to_struct(string contents) {
-    stringstream ss(contents);
+mmp_type mmp_to_struct(std::string contents) {
+    std::stringstream ss(contents);
     mmp_type mmp;
 
     mmp.format_version = read_int(&ss);

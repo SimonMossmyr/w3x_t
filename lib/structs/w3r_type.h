@@ -8,13 +8,13 @@ struct w3r_type {
         float right;
         float bottom;
         float top;
-        string name;
+        std::string name;
         int id;
-        string weather_effect_id;
-        string ambient_sound;
+        std::string weather_effect_id;
+        std::string ambient_sound;
         rgba_color_type color;
         byte_type unknown;
     };
-    vector<region_type> regions;
+    std::vector<region_type> regions;
     byte_type unknown;
 };

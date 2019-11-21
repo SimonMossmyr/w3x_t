@@ -1,7 +1,7 @@
 #include "w3x_t.h"
 
-w3i_type w3i_to_struct(string contents) {
-    stringstream ss(contents);
+w3i_type w3i_to_struct(std::string contents) {
+    std::stringstream ss(contents);
     w3i_type w3i;
 
     w3i.file_format_version = read_int(&ss);

@@ -1,8 +1,8 @@
 #include "w3x_t.h"
 
-wpm_type wpm_to_struct(string contents) {
+wpm_type wpm_to_struct(std::string contents) {
 
-    stringstream ss(contents);
+    std::stringstream ss(contents);
     wpm_type wpm;
     
     wpm.file_id = read_chars(&ss, 4);

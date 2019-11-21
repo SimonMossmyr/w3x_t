@@ -1,6 +1,6 @@
 #include "w3x_t.h"
 
-custom_text_trigger_type read_ctt(stringstream* ss) {
+custom_text_trigger_type read_ctt(std::stringstream* ss) {
     custom_text_trigger_type ctt;
     ctt.length = read_int(ss);
     if (ctt.length > 0) {
@@ -9,9 +9,9 @@ custom_text_trigger_type read_ctt(stringstream* ss) {
     return ctt;
 }
 
-wct_type wct_to_struct(string contents) {
+wct_type wct_to_struct(std::string contents) {
 
-    stringstream ss(contents);
+    std::stringstream ss(contents);
     wct_type wct;
 
     wct.format_version = read_int(&ss);

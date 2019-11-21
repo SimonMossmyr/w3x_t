@@ -1,7 +1,8 @@
 #include "w3x_t.h"
+#include <iomanip>
 
-string read_string(stringstream* ss) {
-    string s;
+std::string read_string(std::stringstream* ss) {
+    std::string s;
     char c;
     while (1) {
         ss->get(c);
@@ -13,40 +14,45 @@ string read_string(stringstream* ss) {
     return s;
 }
 
-string read_chars(stringstream* ss, int amount) {
+std::string read_chars(std::stringstream* ss, int amount) {
     char buffer[amount];
     ss->read(buffer, amount);
-    return string(buffer, amount);
+    return std::string(buffer, amount);
 }
 
-int read_int(stringstream* ss) {
+int read_int(std::stringstream* ss) {
     int i;
     ss->read(reinterpret_cast<char *>(&i), sizeof(i));
     return i;
 }
 
-bool read_bool(stringstream* ss) {
+void write_int(std::stringstream& ss, int i) {
+    int swapped = ((i>>24)&0xff) | ((i<<8)&0xff0000) | ((i>>8)&0xff00) | ((i<<24)&0xff000000);
+    ss << std::setfill ('0') << std::setw(sizeof(int)*2) << std::hex << swapped;
+}
+
+bool read_bool(std::stringstream* ss) {
     return (bool)read_int(ss);
 }
 
-float read_float(stringstream* ss) {
+float read_float(std::stringstream* ss) {
     float i;
     ss->read(reinterpret_cast<char *>(&i), sizeof(i));
     return i;
 }
 
-short read_short(stringstream* ss) {
+short read_short(std::stringstream* ss) {
     short i;
     ss->read(reinterpret_cast<char *>(&i), sizeof(i));
     return i;
 }
 
-char read_char(stringstream* ss) {
+char read_char(std::stringstream* ss) {
     char i;
     ss->get(i);
     return i;
 }
 
-byte_type read_byte(stringstream* ss) {
+byte_type read_byte(std::stringstream* ss) {
     return (byte_type)read_char(ss);
 }

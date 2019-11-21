@@ -1,7 +1,7 @@
 #include "w3x_t.h"
 
-units_doo_type units_doo_to_struct(string contents) {
-    stringstream ss(contents);
+units_doo_type units_doo_to_struct(std::string contents) {
+    std::stringstream ss(contents);
     units_doo_type udoo;
 
     udoo.file_id = read_chars(&ss, 4);

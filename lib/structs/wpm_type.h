@@ -1,7 +1,7 @@
 #include "utils.h"
 
 struct wpm_type {
-    string file_id;
+    std::string file_id;
     int format_version;
     int path_map_width;
     int path_map_height;
@@ -13,5 +13,5 @@ struct wpm_type {
         bool water;
         bool unknown;
     };
-    vector<path_pixel_type> path_pixels;
+    std::vector<path_pixel_type> path_pixels;
 };

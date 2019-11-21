@@ -1,8 +1,8 @@
 #include "w3x_t.h"
 
-shd_type shd_to_struct(string contents, int map_width, int map_height) {
+shd_type shd_to_struct(std::string contents, int map_width, int map_height) {
 
-    stringstream ss(contents);
+    std::stringstream ss(contents);
     shd_type shd;
 
     int number_of_pixels = 16*map_width*map_height;

@@ -12,31 +12,31 @@
 #define DEFAULT_TRIGGER_CATEGORIES 8
 #define DEFAULT_TRIGGERS 9
 
-string find_next_token_and_erase(string* line, string delimiter) {
+std::string find_next_token_and_erase(std::string* line, std::string delimiter) {
     size_t pos = line->find(delimiter);
-    if (pos == string::npos) {
-        string s = *line;
+    if (pos == std::string::npos) {
+        std::string s = *line;
         line->erase(0, line->length());
         return s;
     }
     else {
-        string s = line->substr(0, pos);
+        std::string s = line->substr(0, pos);
         line->erase(0, pos + 1);
         return s;
     }
 }
 
-bool string_ends_with(string line, string ending) {
+bool string_ends_with(std::string line, std::string ending) {
     return line.substr(line.length() - ending.length(), line.length()).compare(ending) == 0;
 }
 
-trigger_data_type trigger_data_to_struct(string contents) {
-    stringstream ss(contents);
+trigger_data_type trigger_data_to_struct(std::string contents) {
+    std::stringstream ss(contents);
     trigger_data_type trigger_data;
 
-    string delimiter = ",";
+    std::string delimiter = ",";
     int current_category = -1;
-    string line;
+    std::string line;
     while (!ss.eof()) {
         getline(ss, line);
 
@@ -73,7 +73,7 @@ trigger_data_type trigger_data_to_struct(string contents) {
             }
         }
         else if (line.substr(0,2).compare("//") != 0 && line.compare("\r") != 0) {
-            string key = find_next_token_and_erase(&line, "=");
+            std::string key = find_next_token_and_erase(&line, "=");
             switch (current_category) {
                 case TRIGGER_CATEGORIES:
                     {
@@ -134,7 +134,7 @@ trigger_data_type trigger_data_to_struct(string contents) {
                         trigger_action_or_event_type trigger_events;
                         trigger_events.first_game_version = stoi(find_next_token_and_erase(&line, delimiter));
                         while (line.length() != 0) {
-                            string token = find_next_token_and_erase(&line, delimiter);
+                            std::string token = find_next_token_and_erase(&line, delimiter);
                             while (token[token.length() - 1] == '\r' || token[token.length() - 1] == '\n') {
                                 token.erase(token.length() - 1);
                             }
@@ -145,7 +145,7 @@ trigger_data_type trigger_data_to_struct(string contents) {
                         while (true) {
                             getline(ss, line);
                             if (line.substr(0,1).compare("_") == 0) {
-                                string name = find_next_token_and_erase(&line, "=");
+                                std::string name = find_next_token_and_erase(&line, "=");
                                 if (string_ends_with(name, "Defaults")) {
                                     while (line.length() != 0) {
                                         trigger_events.defaults.push_back(find_next_token_and_erase(&line, delimiter));
@@ -173,7 +173,7 @@ trigger_data_type trigger_data_to_struct(string contents) {
                         trigger_condition_type trigger_conditions;
                         trigger_conditions.first_game_version = stoi(find_next_token_and_erase(&line, delimiter));
                         while (line.length() != 0) {
-                            string token = find_next_token_and_erase(&line, delimiter);
+                            std::string token = find_next_token_and_erase(&line, delimiter);
                             while (token[token.length() - 1] == '\r' || token[token.length() - 1] == '\n') {
                                 token.erase(token.length() - 1);
                             }
@@ -182,7 +182,7 @@ trigger_data_type trigger_data_to_struct(string contents) {
                         while (true) {
                             getline(ss, line);
                             if (line.substr(0,1).compare("_") == 0) {
-                                string name = find_next_token_and_erase(&line, "=");
+                                std::string name = find_next_token_and_erase(&line, "=");
                                 if (string_ends_with(name, "AIDefaults")) {
                                     trigger_conditions.ai_defaults.compare_value_1 = find_next_token_and_erase(&line, delimiter);
                                     trigger_conditions.ai_defaults.operator_type = find_next_token_and_erase(&line, delimiter);
@@ -213,7 +213,7 @@ trigger_data_type trigger_data_to_struct(string contents) {
                         trigger_action_or_event_type trigger_actions;
                         trigger_actions.first_game_version = stoi(find_next_token_and_erase(&line, delimiter));
                         while (line.length() != 0) {
-                            string token = find_next_token_and_erase(&line, delimiter);
+                            std::string token = find_next_token_and_erase(&line, delimiter);
                             while (token[token.length() - 1] == '\r' || token[token.length() - 1] == '\n') {
                                 token.erase(token.length() - 1);
                             }
@@ -222,7 +222,7 @@ trigger_data_type trigger_data_to_struct(string contents) {
                         while (true) {
                             getline(ss, line);
                             if (line.substr(0,1).compare("_") == 0) {
-                                string name = find_next_token_and_erase(&line, "=");
+                                std::string name = find_next_token_and_erase(&line, "=");
                                 if (string_ends_with(name, "Defaults")) {
                                     while (line.length() != 0) {
                                         trigger_actions.defaults.push_back(find_next_token_and_erase(&line, delimiter));
@@ -252,7 +252,7 @@ trigger_data_type trigger_data_to_struct(string contents) {
                         trigger_call.can_be_used_in_events = (bool)stoi(find_next_token_and_erase(&line, delimiter));
                         trigger_call.return_type = find_next_token_and_erase(&line, delimiter);
                         while (line.length() != 0) {
-                            string token = find_next_token_and_erase(&line, delimiter);
+                            std::string token = find_next_token_and_erase(&line, delimiter);
                             while (token[token.length() - 1] == '\r' || token[token.length() - 1] == '\n') {
                                 token.erase(token.length() - 1);
                             }
@@ -261,7 +261,7 @@ trigger_data_type trigger_data_to_struct(string contents) {
                         while (true) {
                             getline(ss, line);
                             if (line.substr(0,1).compare("_") == 0) {
-                                string name = find_next_token_and_erase(&line, "=");
+                                std::string name = find_next_token_and_erase(&line, "=");
                                 if (string_ends_with(name, "Defaults")) {
                                     while (line.length() != 0) {
                                         trigger_call.defaults.push_back(find_next_token_and_erase(&line, delimiter));

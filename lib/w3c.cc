@@ -1,7 +1,7 @@
 #include "w3x_t.h"
 
-w3c_type w3c_to_struct(string contents) {
-    stringstream ss(contents);
+w3c_type w3c_to_struct(std::string contents) {
+    std::stringstream ss(contents);
     w3c_type w3c;
 
     w3c.file_version = read_int(&ss);

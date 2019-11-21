@@ -1,7 +1,7 @@
 // TODO: Processing this takes a LONG time for files with a moderate
-// amount of triggers. Probably the fault of string comparison. This
+// amount of triggers. Probably the fault of std::string comparison. This
 // interpreter should be rewritten using something other than a
-// std::stringstream.
+// std::std::stringstream.
 
 #include "w3x_t.h"
 
@@ -9,11 +9,11 @@
 #define ECA_CONDITION 1
 #define ECA_ACTION 2
 
-struct ECANotDefinedException : public exception {
+struct ECANotDefinedException : public std::exception {
     private:
-        string message;
+        std::string message;
     public:
-        ECANotDefinedException(string eca_name) {
+        ECANotDefinedException(std::string eca_name) {
             message = "ECA function \"" + eca_name + "\" in war3map.wtg could not be found in TriggerData.txt.";
         }
         const char* what() const throw () {
@@ -21,7 +21,7 @@ struct ECANotDefinedException : public exception {
         }
 };
 
-bool string_counts_as_parameter(string value) {    
+bool string_counts_as_parameter(std::string value) {    
     return
         value.compare("0") != 0 &&
         value.compare("1") != 0 &&
@@ -29,11 +29,11 @@ bool string_counts_as_parameter(string value) {
         value.compare("") != 0;
 }
 
-int find_n_parameters(string name, trigger_data_type trigger_data) {
+int find_n_parameters(std::string name, trigger_data_type trigger_data) {
     int n_parameters = 0;
     if (trigger_data.trigger_events.find(name) != trigger_data.trigger_events.end()) {
         for (int i = 0; i < trigger_data.trigger_events[name].argument_types.size(); i++) {
-            string argument_type = trigger_data.trigger_events[name].argument_types[i];
+            std::string argument_type = trigger_data.trigger_events[name].argument_types[i];
             if (string_counts_as_parameter(argument_type)) {
                 n_parameters++;
             }
@@ -41,7 +41,7 @@ int find_n_parameters(string name, trigger_data_type trigger_data) {
     }
     else if (trigger_data.trigger_conditions.find(name) != trigger_data.trigger_conditions.end()) {
         for (int i = 0; i < trigger_data.trigger_conditions[name].argument_types.size(); i++) {
-            string argument_type = trigger_data.trigger_conditions[name].argument_types[i];
+            std::string argument_type = trigger_data.trigger_conditions[name].argument_types[i];
             if (string_counts_as_parameter(argument_type)) {
                 n_parameters++;
             }
@@ -49,7 +49,7 @@ int find_n_parameters(string name, trigger_data_type trigger_data) {
     }
     else if (trigger_data.trigger_actions.find(name) != trigger_data.trigger_actions.end()) {
         for (int i = 0; i < trigger_data.trigger_actions[name].argument_types.size(); i++) {
-            string argument_type = trigger_data.trigger_actions[name].argument_types[i];
+            std::string argument_type = trigger_data.trigger_actions[name].argument_types[i];
             if (string_counts_as_parameter(argument_type)) {
                 n_parameters++;
             }
@@ -57,7 +57,7 @@ int find_n_parameters(string name, trigger_data_type trigger_data) {
     }
     else if (trigger_data.trigger_calls.find(name) != trigger_data.trigger_calls.end()) {
         for (int i = 0; i < trigger_data.trigger_calls[name].argument_types.size(); i++) {
-            string argument_type = trigger_data.trigger_calls[name].argument_types[i];
+            std::string argument_type = trigger_data.trigger_calls[name].argument_types[i];
             if (string_counts_as_parameter(argument_type)) {
                 n_parameters++;
             }
@@ -71,7 +71,7 @@ int find_n_parameters(string name, trigger_data_type trigger_data) {
 }
 
 parameter_type read_parameter(
-    stringstream* ss,
+    std::stringstream* ss,
     trigger_data_type trigger_data
 ) {
     parameter_type parameter;
@@ -106,8 +106,8 @@ parameter_type read_parameter(
     return parameter;
 }
 
-vector<eca_type> read_ecas(stringstream* ss, int amount, bool is_child, trigger_data_type trigger_data) {
-    vector<eca_type> ecas;
+std::vector<eca_type> read_ecas(std::stringstream* ss, int amount, bool is_child, trigger_data_type trigger_data) {
+    std::vector<eca_type> ecas;
     ecas.resize(amount);
 
     for (int i = 0; i < amount; i++) {
@@ -131,8 +131,8 @@ vector<eca_type> read_ecas(stringstream* ss, int amount, bool is_child, trigger_
     return ecas;
 }
 
-wtg_type wtg_to_struct(string content, trigger_data_type trigger_data) {
-    stringstream ss(content);
+wtg_type wtg_to_struct(std::string content, trigger_data_type trigger_data) {
+    std::stringstream ss(content);
     wtg_type wtg;
 
     wtg.file_id = read_chars(&ss, 4);

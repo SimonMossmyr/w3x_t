@@ -3,24 +3,24 @@
 struct modification_table_type {
     int n_objects;
     struct object_type {
-        string original_id;
-        string new_id;
+        std::string original_id;
+        std::string new_id;
         int n_modifications;
         struct modification_type {
-            string id;
+            std::string id;
             int type;
             int level;
             int column;
             struct value_type {
                 int integer;
                 float real;
-                string str;
+                std::string str;
             } value;
-            string object_id;
+            std::string object_id;
         };
-        vector<modification_type> modifications;
+        std::vector<modification_type> modifications;
     };
-    vector<object_type> objects;
+    std::vector<object_type> objects;
 };
 
 struct w3o_type {

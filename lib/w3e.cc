@@ -1,8 +1,8 @@
 #include "w3x_t.h"
 
-w3e_type w3e_to_struct(string contents) {
+w3e_type w3e_to_struct(std::string contents) {
 
-    stringstream ss(contents);
+    std::stringstream ss(contents);
     w3e_type w3e;
 
     w3e.file_id = read_chars(&ss, 4);    

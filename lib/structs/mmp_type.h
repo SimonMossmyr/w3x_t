@@ -9,6 +9,6 @@ struct mmp_type {
         int y;
         rgba_color_type color;
     };
-    vector<icon_type> icons;
+    std::vector<icon_type> icons;
     byte_type unknown_2;
 };

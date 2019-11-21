@@ -5,9 +5,9 @@ struct imp_type {
     int n_imps;
     struct imp_file_type {
         bool prefix_path_with_map3mapImported;
-        string path;
+        std::string path;
     };
-    vector<imp_file_type> imported_files;
+    std::vector<imp_file_type> imported_files;
 
     byte_type unknown;
 };

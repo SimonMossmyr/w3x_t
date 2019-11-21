@@ -1,8 +1,8 @@
 #include "w3x_t.h"
 
-imp_type imp_to_struct(string contents) {
+imp_type imp_to_struct(std::string contents) {
 
-    stringstream ss(contents);
+    std::stringstream ss(contents);
     imp_type imp;
 
     imp.format_version = read_int(&ss);
