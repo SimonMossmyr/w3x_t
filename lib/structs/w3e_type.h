@@ -11,8 +11,8 @@ struct w3e_type {
     std::vector<std::string> cliff_tilesets;
     int map_width_plus_one;
     int map_height_plus_one;
-    int center_offset_x;
-    int center_offset_y;
+    float center_offset_x;
+    float center_offset_y;
     struct tilepoint_type {
         short ground_height;
         short water_height;

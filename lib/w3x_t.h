@@ -31,14 +31,25 @@
 #define W3O_TYPE_STRING 3
 
 /** Utils */
-std::string     read_string (std::stringstream* ss);
-std::string     read_chars  (std::stringstream* ss, int amount);
-int             read_int    (std::stringstream* ss);
-bool            read_bool   (std::stringstream* ss);
-float           read_float  (std::stringstream* ss);
-short           read_short  (std::stringstream* ss);
-char            read_char   (std::stringstream* ss);
-byte_type       read_byte   (std::stringstream* ss);
+std::string str_to_hex(std::string s);
+std::string string_to_hex(const std::string& input);
+std::string read_string (std::stringstream* ss);
+void write_string(std::stringstream& ss, std::string s);
+std::string read_chars (std::stringstream* ss, int amount);
+void write_chars(std::stringstream& ss, std::string s, int amount);
+int read_int (std::stringstream* ss);
+void write_int(std::stringstream& ss, int i);
+void write_bools_as_mask(std::stringstream& ss, bool bools[], int amount);
+bool read_bool (std::stringstream* ss);
+void write_bool(std::stringstream& ss, bool b);
+float read_float (std::stringstream* ss);
+void write_float(std::stringstream& ss, float* f);
+short read_short (std::stringstream* ss);
+void write_short(std::stringstream& ss, short s);
+char read_char (std::stringstream* ss);
+void write_char(std::stringstream& ss, char c);
+byte_type read_byte (std::stringstream* ss);
+void write_byte(std::stringstream& ss, byte_type b);
 
 /** Converters */
 w3e_type            w3e_to_struct           (std::string contents);
@@ -57,3 +68,5 @@ w3r_type            w3r_to_struct           (std::string contents);
 w3s_type            w3s_to_struct           (std::string contents);
 wct_type            wct_to_struct           (std::string contents);
 imp_type            imp_to_struct           (std::string contents);
+
+std::string struct_to_w3e(w3e_type w3e);

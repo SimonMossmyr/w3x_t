@@ -114,9 +114,27 @@ int main(int argc, char* argv[])
     imp_type imp;
 
     try {
-        w3e = w3e_to_struct(get_contents_from_mpq_file(hMpq, "war3map.w3e"));
+        std::string file_contents = get_contents_from_mpq_file(hMpq, "war3map.w3e");
+
+        w3e = w3e_to_struct(file_contents);
         map_width = w3e.map_width_plus_one - 1;
         map_height = w3e.map_height_plus_one - 1;
+
+        std::string contents = struct_to_w3e(w3e);
+
+        std::string s1 = str_to_hex(file_contents);
+        //std::cout << s1 << std::endl; exit(1);
+        std::string s2 = str_to_hex(contents);
+        //std::cout << s2 << std::endl; exit(1);
+
+        for (int i = 0; i < s1.length(); i++) {
+            if (s1.c_str()[i] != s2.c_str()[i]) {
+                std::cout << "diff at col " << i + 1 << std::endl;
+                std::cout << "s1[i] = " << s1.c_str()[i] << std::endl;
+                std::cout << "s2[i] = " << s2.c_str()[i] << std::endl;
+                exit(1);
+            }
+        }
     }
     catch (std::exception& s) {
         warning(s.what());

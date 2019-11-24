@@ -1,5 +1,34 @@
 #include "w3x_t.h"
 #include <iomanip>
+#include <cstring>
+
+std::string str_to_hex(std::string s) {
+    std::stringstream ss;
+    std::stringstream ss2(s);
+    while(!ss2.eof()) {
+        unsigned char c = read_char(&ss2);
+        if ((int)c < 16) {
+            ss << "0";
+        }
+        ss << std::hex << (int)c;
+    }
+    return ss.str();
+}
+
+std::string string_to_hex(const std::string& input) {
+    static const char* const lut = "0123456789ABCDEF";
+    size_t len = input.length();
+
+    std::string output;
+    output.reserve(2 * len);
+    for (size_t i = 0; i < len; ++i)
+    {
+        const unsigned char c = input[i];
+        output.push_back(lut[c >> 4]);
+        output.push_back(lut[c & 15]);
+    }
+    return output;
+}
 
 std::string read_string(std::stringstream* ss) {
     std::string s;
@@ -14,10 +43,18 @@ std::string read_string(std::stringstream* ss) {
     return s;
 }
 
+//void write_string(std::stringstream& ss, std::string s) {
+
+//}
+
 std::string read_chars(std::stringstream* ss, int amount) {
     char buffer[amount];
     ss->read(buffer, amount);
     return std::string(buffer, amount);
+}
+
+void write_chars(std::stringstream& ss, std::string s, int amount) {
+    ss << s.substr(0, amount);
 }
 
 int read_int(std::stringstream* ss) {
@@ -27,12 +64,16 @@ int read_int(std::stringstream* ss) {
 }
 
 void write_int(std::stringstream& ss, int i) {
-    int swapped = ((i>>24)&0xff) | ((i<<8)&0xff0000) | ((i>>8)&0xff00) | ((i<<24)&0xff000000);
-    ss << std::setfill ('0') << std::setw(sizeof(int)*2) << std::hex << swapped;
+    ss.write(reinterpret_cast<char *>(&i), sizeof(i));
 }
 
 bool read_bool(std::stringstream* ss) {
     return (bool)read_int(ss);
+}
+
+void write_bool(std::stringstream& ss, bool b) {
+    int i = (int)b;
+    write_int(ss, i);
 }
 
 float read_float(std::stringstream* ss) {
@@ -41,10 +82,20 @@ float read_float(std::stringstream* ss) {
     return i;
 }
 
+void write_float(std::stringstream& ss, float* f) {
+    char c[4];
+    memcpy(c, f, sizeof(float));
+    ss << c[0] << c[1] << c[2] << c[3];
+}
+
 short read_short(std::stringstream* ss) {
     short i;
     ss->read(reinterpret_cast<char *>(&i), sizeof(i));
     return i;
+}
+
+void write_short(std::stringstream& ss, short s) {
+    ss.write(reinterpret_cast<char *>(&s), sizeof(s));
 }
 
 char read_char(std::stringstream* ss) {
@@ -55,4 +106,8 @@ char read_char(std::stringstream* ss) {
 
 byte_type read_byte(std::stringstream* ss) {
     return (byte_type)read_char(ss);
+}
+
+void write_byte(std::stringstream& ss, byte_type b) {
+    ss << b;
 }
