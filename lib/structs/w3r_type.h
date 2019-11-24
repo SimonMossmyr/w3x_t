@@ -13,7 +13,6 @@ struct w3r_type {
         std::string weather_effect_id;
         std::string ambient_sound;
         rgba_color_type color;
-        byte_type unknown;
     };
     std::vector<region_type> regions;
     byte_type unknown;
