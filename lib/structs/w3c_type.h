@@ -1,5 +1,3 @@
-#include "utils.h"
-
 struct w3c_type {
     int file_version;
     int n_cameras;

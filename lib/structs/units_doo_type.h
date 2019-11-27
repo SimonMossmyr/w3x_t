@@ -1,12 +1,10 @@
-#include "utils.h"
-
 struct units_doo_type {
-    std::string file_id;
+    warcraft_id file_id;
     int file_version;
     int file_sub_version;
     int n_units;
     struct unit_type {
-        std::string type_id;
+        warcraft_id type_id;
         int variation;
         position_type position;
         float rotation_angle;
@@ -21,7 +19,7 @@ struct units_doo_type {
         struct dropped_item_set_type {
             int size;
             struct item_type {
-                std::string item_id;
+                warcraft_id item_id;
                 int chance_to_be_dropped;
             };
             std::vector<item_type> items;
@@ -38,12 +36,12 @@ struct units_doo_type {
         int n_items_in_inventory;
         struct item_in_inventory_type {
             int slot;
-            std::string type_id;
+            warcraft_id type_id;
         };
         std::vector<item_in_inventory_type> items_in_inventory;
         int n_modified_abilities;
         struct modified_ability_type {
-            std::string ability_id;
+            warcraft_id ability_id;
             bool autocast_active;
             int level;
         };
@@ -62,7 +60,7 @@ struct units_doo_type {
         struct random_unit_from_custom_table_type {
             int n_units;
             struct table_entry_type {
-                std::string unit_id;
+                warcraft_id unit_id;
                 int chance;
             };
             std::vector<table_entry_type> table;

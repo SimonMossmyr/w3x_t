@@ -1,5 +1,3 @@
-#include "utils.h"
-
 struct parameter_type {
     int type;
     std::string value;
@@ -26,7 +24,7 @@ struct eca_type {
 };
 
 struct wtg_type {
-    std::string file_id;
+    warcraft_id file_id;
     int format_version;
     int n_trigger_categories;
     struct trigger_category_type {

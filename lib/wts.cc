@@ -32,7 +32,7 @@ wts_type wts_to_struct(std::string contents) {
     }
 
     if (!ss.eof()) {
-        throw DataStillExistsException("war3map.wts");
+        throw data_still_exists("war3map.wts");
     }
 
     return wts;

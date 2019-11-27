@@ -19,7 +19,7 @@ imp_type imp_to_struct(std::string contents) {
     imp.unknown = read_byte(&ss);
 
     if (!ss.eof()) {    
-        throw DataStillExistsException("war3map.imp");
+        throw data_still_exists("war3map.imp");
     }
 
     return imp;

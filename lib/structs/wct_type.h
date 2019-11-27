@@ -1,5 +1,3 @@
-#include "utils.h"
-
 struct custom_text_trigger_type {
     int length;
     std::string contents;

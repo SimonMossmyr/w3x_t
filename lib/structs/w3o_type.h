@@ -1,13 +1,11 @@
-#include "utils.h"
-
 struct modification_table_type {
     int n_objects;
     struct object_type {
-        std::string original_id;
-        std::string new_id;
+        warcraft_id original_id;
+        warcraft_id new_id;
         int n_modifications;
         struct modification_type {
-            std::string id;
+            warcraft_id id;
             int type;
             int level;
             int column;
@@ -16,7 +14,7 @@ struct modification_table_type {
                 float real;
                 std::string str;
             } value;
-            std::string object_id;
+            warcraft_id object_id;
         };
         std::vector<modification_type> modifications;
     };

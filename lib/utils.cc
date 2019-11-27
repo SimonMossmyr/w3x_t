@@ -1,6 +1,4 @@
 #include "w3x_t.h"
-#include <iomanip>
-#include <cstring>
 
 std::string str_to_hex(std::string s) {
     std::stringstream ss;
@@ -13,21 +11,6 @@ std::string str_to_hex(std::string s) {
         ss << std::hex << (int)c;
     }
     return ss.str();
-}
-
-std::string string_to_hex(const std::string& input) {
-    static const char* const lut = "0123456789ABCDEF";
-    size_t len = input.length();
-
-    std::string output;
-    output.reserve(2 * len);
-    for (size_t i = 0; i < len; ++i)
-    {
-        const unsigned char c = input[i];
-        output.push_back(lut[c >> 4]);
-        output.push_back(lut[c & 15]);
-    }
-    return output;
 }
 
 std::string read_string(std::stringstream* ss) {
@@ -102,6 +85,10 @@ char read_char(std::stringstream* ss) {
     char i;
     ss->get(i);
     return i;
+}
+
+void write_char(std::stringstream& ss, char c) {
+    ss << c;
 }
 
 byte_type read_byte(std::stringstream* ss) {

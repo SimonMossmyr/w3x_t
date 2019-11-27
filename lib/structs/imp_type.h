@@ -1,5 +1,3 @@
-#include "utils.h"
-
 struct imp_type {
     int format_version;
     int n_imps;

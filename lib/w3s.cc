@@ -41,7 +41,7 @@ w3s_type w3s_to_struct(std::string contents) {
     w3s.unknown = read_byte(&ss);
 
     if (!ss.eof()) {
-        throw DataStillExistsException("war3map.w3s");
+        throw data_still_exists("war3map.w3s");
     }
 
     return w3s;

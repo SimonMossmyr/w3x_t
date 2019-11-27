@@ -4,7 +4,7 @@ doo_type doo_to_struct(std::string contents) {
     std::stringstream ss(contents);
     doo_type doo;
 
-    doo.doodads.file_id = read_chars(&ss, 4);
+    doo.doodads.file_id = warcraft_id(&ss);
 
     doo.doodads.format_version = read_int(&ss);
     doo.doodads.format_sub_version = read_int(&ss);
@@ -41,7 +41,7 @@ doo_type doo_to_struct(std::string contents) {
 
     doo.special_doodads.resize(doo.n_special_doodads);
     for (int i = 0; i < doo.n_special_doodads; i++) {
-        doo.special_doodads[i].type_id = read_chars(&ss, 4);
+        doo.special_doodads[i].type_id = warcraft_id(&ss);
 
         doo.special_doodads[i].position.z = read_int(&ss);
         doo.special_doodads[i].position.x = read_int(&ss);
@@ -54,7 +54,7 @@ doo_type doo_to_struct(std::string contents) {
      * function that takes the std::stringstream as an argument, please do, but after four hours of
      * this I give up.
      */
-    doo.trees.file_id = read_chars(&ss, 4);
+    doo.trees.file_id = warcraft_id(&ss);
     doo.trees.format_version = read_int(&ss);
     doo.trees.format_sub_version = read_int(&ss);
     doo.trees.n_doodads = read_int(&ss);
@@ -86,7 +86,7 @@ doo_type doo_to_struct(std::string contents) {
     }
 
     if (!ss.eof()) {
-        throw DataStillExistsException("war3map.doo");
+        throw data_still_exists("war3map.doo");
     }
 
     return doo;

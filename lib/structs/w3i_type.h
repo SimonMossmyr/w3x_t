@@ -1,5 +1,3 @@
-#include "utils.h"
-
 struct w3i_type {
     int file_format_version;
     int map_version;
@@ -54,7 +52,7 @@ struct w3i_type {
         float density;
         rgba_color_type color;
     } fog;
-    std::string global_weather_id;
+    warcraft_id global_weather_id;
     std::string custom_sound_environment;
     char tileset_id_of_custom_light_environment;
     rgba_color_type custom_water_tinting;
@@ -89,7 +87,7 @@ struct w3i_type {
     int n_upgrade_availabilities;
     struct upgrade_availability_type {
         bool applies_to_player[32];
-        std::string id;
+        warcraft_id id;
         int level_minus_one_of_the_upgrade_for_which_the_availability_is_changed;
         bool is_available;
         bool is_researched;
@@ -98,7 +96,7 @@ struct w3i_type {
     int n_tech_availabilities;
     struct tech_availability_type {
         bool applies_to_player[32];
-        std::string id;
+        warcraft_id id;
     };
     std::vector<tech_availability_type> tech_availabilities;
     int n_random_unit_tables;
@@ -112,7 +110,7 @@ struct w3i_type {
             int n_widgets;
             struct random_widget_type {
                 int chance;
-                std::vector<std::string> ids;
+                std::vector<warcraft_id> id;
             };
             std::vector<random_widget_type> random_widgets;
         };
@@ -130,7 +128,7 @@ struct w3i_type {
                 int n_items;
                 struct item_type {
                     int percentual_chance;
-                    std::string id;
+                    warcraft_id id;
                 };
                 std::vector<item_type> items;
             };

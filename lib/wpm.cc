@@ -5,7 +5,7 @@ wpm_type wpm_to_struct(std::string contents) {
     std::stringstream ss(contents);
     wpm_type wpm;
     
-    wpm.file_id = read_chars(&ss, 4);
+    wpm.file_id = warcraft_id(&ss);
     wpm.format_version = read_int(&ss);
     wpm.path_map_width = read_int(&ss);
     wpm.path_map_height = read_int(&ss);
@@ -24,7 +24,7 @@ wpm_type wpm_to_struct(std::string contents) {
     }
 
     if (!ss.eof()) {
-        throw DataStillExistsException("war3map.wpm");
+        throw data_still_exists("war3map.wpm");
     }
 
     return wpm;

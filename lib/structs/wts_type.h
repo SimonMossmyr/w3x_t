@@ -1,5 +1,3 @@
-#include "utils.h"
-
 struct trigger_string_type {
     int number;
     std::string content;

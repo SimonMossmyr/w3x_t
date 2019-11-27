@@ -1,7 +1,5 @@
-#include "utils.h"
-
 struct wpm_type {
-    std::string file_id;
+    warcraft_id file_id;
     int format_version;
     int path_map_width;
     int path_map_height;

@@ -1,5 +1,3 @@
-#include "utils.h"
-
 struct w3s_type {
     int format_version;
     int n_sounds;

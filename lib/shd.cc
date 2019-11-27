@@ -14,7 +14,7 @@ shd_type shd_to_struct(std::string contents, int map_width, int map_height) {
     shd.unknown_or_unused = read_byte(&ss);
 
     if (!ss.eof()) {
-        throw DataStillExistsException("war3map.shd");
+        throw data_still_exists("war3map.shd");
     }
 
     return shd;

@@ -3,7 +3,51 @@
 #include <bitset>
 #include <sstream>
 #include <string>
+#include <string_view>
+#include <cstring>
 
+#define W3JSON_VERSION_MAJOR 0 // should probably be handled by CMake
+#define W3JSON_VERSION_MINOR 0
+#define W3JSON_VERSION_PATCH 0
+
+#define W3O_TYPE_INTEGER 0
+#define W3O_TYPE_REAL 1
+#define W3O_TYPE_UREAL 2
+#define W3O_TYPE_STRING 3
+
+/** Data types */
+typedef unsigned char byte_type;
+
+/** Utils */
+std::string str_to_hex(std::string s);
+
+std::string read_string (std::stringstream* ss);
+void write_string(std::stringstream& ss, std::string s);
+
+std::string read_chars (std::stringstream* ss, int amount);
+void write_chars(std::stringstream& ss, std::string s, int amount);
+
+int read_int (std::stringstream* ss);
+void write_int(std::stringstream& ss, int i);
+void write_bools_as_mask(std::stringstream& ss, bool bools[], int amount);
+
+bool read_bool (std::stringstream* ss);
+void write_bool(std::stringstream& ss, bool b);
+
+float read_float (std::stringstream* ss);
+void write_float(std::stringstream& ss, float* f);
+
+short read_short (std::stringstream* ss);
+void write_short(std::stringstream& ss, short s);
+
+char read_char (std::stringstream* ss);
+void write_char(std::stringstream& ss, char c);
+
+byte_type read_byte (std::stringstream* ss);
+void write_byte(std::stringstream& ss, byte_type b);
+
+/** Structs */
+#include "structs/utils.h"
 #include "structs/w3e_type.h"
 #include "structs/shd_type.h"
 #include "structs/wpm_type.h"
@@ -20,36 +64,6 @@
 #include "structs/w3s_type.h"
 #include "structs/wct_type.h"
 #include "structs/imp_type.h"
-
-#define W3JSON_VERSION_MAJOR 0 // should probably be handled by CMake
-#define W3JSON_VERSION_MINOR 0
-#define W3JSON_VERSION_PATCH 0
-
-#define W3O_TYPE_INTEGER 0
-#define W3O_TYPE_REAL 1
-#define W3O_TYPE_UREAL 2
-#define W3O_TYPE_STRING 3
-
-/** Utils */
-std::string str_to_hex(std::string s);
-std::string string_to_hex(const std::string& input);
-std::string read_string (std::stringstream* ss);
-void write_string(std::stringstream& ss, std::string s);
-std::string read_chars (std::stringstream* ss, int amount);
-void write_chars(std::stringstream& ss, std::string s, int amount);
-int read_int (std::stringstream* ss);
-void write_int(std::stringstream& ss, int i);
-void write_bools_as_mask(std::stringstream& ss, bool bools[], int amount);
-bool read_bool (std::stringstream* ss);
-void write_bool(std::stringstream& ss, bool b);
-float read_float (std::stringstream* ss);
-void write_float(std::stringstream& ss, float* f);
-short read_short (std::stringstream* ss);
-void write_short(std::stringstream& ss, short s);
-char read_char (std::stringstream* ss);
-void write_char(std::stringstream& ss, char c);
-byte_type read_byte (std::stringstream* ss);
-void write_byte(std::stringstream& ss, byte_type b);
 
 /** Converters */
 w3e_type            w3e_to_struct           (std::string contents);

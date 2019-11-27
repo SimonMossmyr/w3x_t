@@ -2,11 +2,11 @@
 #include <StormLib.h>
 #include <CascLib.h>
 
-struct ArchiveFileDoesNotExistException : public std::exception {
+struct archive_file_does_not_exist : public std::exception {
     private:
         std::string message;
     public:
-        ArchiveFileDoesNotExistException(std::string file_name) {
+        archive_file_does_not_exist(std::string file_name) {
             message = file_name + " does not exist.";
         }
         const char* what() const throw () {

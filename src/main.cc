@@ -3,7 +3,7 @@
 std::string get_contents_from_mpq_file(HANDLE hMpq, std::string file_name) {
     HANDLE file_handle;
     if (!SFileOpenFileEx(hMpq, file_name.c_str(), SFILE_OPEN_FROM_MPQ, &file_handle)) {
-        throw ArchiveFileDoesNotExistException(file_name);
+        throw archive_file_does_not_exist(file_name);
     }
 
     DWORD size_of_file_high = -1;

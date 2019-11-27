@@ -1,5 +1,3 @@
-#include "utils.h"
-
 struct w3r_type {
     int format_version;
     int n_regions;
@@ -10,7 +8,7 @@ struct w3r_type {
         float top;
         std::string name;
         int id;
-        std::string weather_effect_id;
+        warcraft_id weather_effect_id;
         std::string ambient_sound;
         rgba_color_type color;
     };

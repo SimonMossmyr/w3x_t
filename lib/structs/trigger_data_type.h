@@ -1,5 +1,3 @@
-#include "utils.h"
-
 struct trigger_category_type {
     std::string display_text;
     std::string icon_image_file;

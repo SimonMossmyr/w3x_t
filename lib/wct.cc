@@ -27,7 +27,7 @@ wct_type wct_to_struct(std::string contents) {
     wct.unknown = read_byte(&ss);
 
     if (!ss.eof()) {    
-        throw DataStillExistsException("war3map.wct");
+        throw data_still_exists("war3map.wct");
     }
 
     return wct;

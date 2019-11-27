@@ -25,7 +25,7 @@ w3c_type w3c_to_struct(std::string contents) {
     w3c.unknown = read_byte(&ss);
 
     if (!ss.eof()) {    
-        throw DataStillExistsException("war3map.w3c");
+        throw data_still_exists("war3map.w3c");
     }
 
     return w3c;

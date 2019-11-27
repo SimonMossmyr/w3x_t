@@ -6,12 +6,12 @@ modification_table_type read_modification_table(std::stringstream* ss, bool is_d
     mod.n_objects = read_int(ss);
     mod.objects.resize(mod.n_objects);
     for (int i = 0; i < mod.n_objects; i++) {
-        mod.objects[i].original_id = read_chars(ss, 4);
-        mod.objects[i].new_id = read_chars(ss, 4);
+        mod.objects[i].original_id = warcraft_id(ss);
+        mod.objects[i].new_id = warcraft_id(ss);
         mod.objects[i].n_modifications = read_int(ss);
         mod.objects[i].modifications.resize(mod.objects[i].n_modifications);
         for (int j = 0; j < mod.objects[i].n_modifications; j++) {
-            mod.objects[i].modifications[j].id = read_chars(ss, 4);
+            mod.objects[i].modifications[j].id = warcraft_id(ss);
             mod.objects[i].modifications[j].type = read_int(ss);
             if (is_doodad_ability_or_upgrade) {
                 mod.objects[i].modifications[j].level = read_int(ss);
@@ -29,7 +29,7 @@ modification_table_type read_modification_table(std::stringstream* ss, bool is_d
                     mod.objects[i].modifications[j].value.str = read_string(ss);
                     break;
             }
-            mod.objects[i].modifications[j].object_id = read_chars(ss, 4);
+            mod.objects[i].modifications[j].object_id = warcraft_id(ss);
         }
     }
 
@@ -47,7 +47,7 @@ w3o_type w3o_to_struct(std::string contents, bool is_doodad_ability_or_upgrade, 
     w3o.unknown = read_byte(&ss);
 
     if (!ss.eof()) {
-        throw DataStillExistsException(file_name);
+        throw data_still_exists(file_name);
     }
 
     return w3o;

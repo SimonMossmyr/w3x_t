@@ -15,7 +15,7 @@ w3r_type w3r_to_struct(std::string contents) {
         w3r.regions[i].top = read_float(&ss);
         w3r.regions[i].name = read_string(&ss);
         w3r.regions[i].id = read_int(&ss);
-        w3r.regions[i].weather_effect_id = read_chars(&ss, 4);
+        w3r.regions[i].weather_effect_id = warcraft_id(&ss);
         w3r.regions[i].ambient_sound = read_string(&ss);
         w3r.regions[i].color.blue = read_byte(&ss);
         w3r.regions[i].color.green = read_byte(&ss);
@@ -26,7 +26,7 @@ w3r_type w3r_to_struct(std::string contents) {
     w3r.unknown = read_byte(&ss);
 
     if (!ss.eof()) {
-        throw DataStillExistsException("war3map.w3r");
+        throw data_still_exists("war3map.w3r");
     }
 
     return w3r;

@@ -1,7 +1,5 @@
-#include "utils.h"
-
 struct w3do_type {
-    std::string file_id;
+    warcraft_id file_id;
     int format_version;
     int format_sub_version;
     int n_doodads;
@@ -27,7 +25,7 @@ struct doo_type {
     int special_doodads_format_version;
     int n_special_doodads;
     struct special_doodad_type {
-        std::string type_id;
+        warcraft_id type_id;
         position_type position;
     };
     std::vector<special_doodad_type> special_doodads;

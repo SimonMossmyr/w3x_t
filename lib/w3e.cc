@@ -5,23 +5,23 @@ w3e_type w3e_to_struct(std::string contents) {
     std::stringstream ss(contents);
     w3e_type w3e;
 
-    w3e.file_id = read_chars(&ss, 4);    
+    w3e.file_id = warcraft_id(&ss);
     w3e.format_version = read_int(&ss);
-    w3e.main_tileset = read_byte(&ss);
+    w3e.main_tileset = tileset(read_char(&ss));
     w3e.custom_tileset = (bool)read_int(&ss);
     
     /** Ground tilesets */
     w3e.n_ground_tilesets = read_int(&ss);
     w3e.ground_tilesets.resize(w3e.n_ground_tilesets);
     for (int i = 0; i < w3e.n_ground_tilesets; i++) {
-        w3e.ground_tilesets[i] = read_chars(&ss, 4);
+        w3e.ground_tilesets[i] = warcraft_id(&ss);
     }
 
     /** Cliff tilesets */
     w3e.n_cliff_tilesets = read_int(&ss);
     w3e.cliff_tilesets.resize(w3e.n_cliff_tilesets);
     for (int i = 0; i < w3e.n_cliff_tilesets; i++) {
-        w3e.cliff_tilesets[i] = read_chars(&ss, 4);
+        w3e.cliff_tilesets[i] = warcraft_id(&ss);
     }
 
     w3e.map_width_plus_one = read_int(&ss);
@@ -57,7 +57,7 @@ w3e_type w3e_to_struct(std::string contents) {
     w3e.unknown = read_byte(&ss);
 
     if (!ss.eof()) {    
-        throw DataStillExistsException("war3map.w3e");
+        throw data_still_exists("war3map.w3e");
     }
 
     return w3e;
@@ -66,17 +66,17 @@ w3e_type w3e_to_struct(std::string contents) {
 std::string struct_to_w3e(w3e_type w3e) {
     std::stringstream ss;
 
-    write_chars(ss, w3e.file_id, 4);
+    w3e.file_id.write_to_ss(ss);
     write_int(ss, w3e.format_version);
-    write_byte(ss, w3e.main_tileset);
+    write_char(ss, w3e.main_tileset.to_char());
     write_bool(ss, w3e.custom_tileset);
     write_int(ss, w3e.n_ground_tilesets);
     for (int i = 0; i < w3e.n_ground_tilesets; i++) {
-        write_chars(ss, w3e.ground_tilesets[i], 4);
+        w3e.ground_tilesets[i].write_to_ss(ss);
     }
     write_int(ss, w3e.n_cliff_tilesets);
     for (int i = 0; i < w3e.n_cliff_tilesets; i++) {
-        write_chars(ss, w3e.cliff_tilesets[i], 4);
+        w3e.cliff_tilesets[i].write_to_ss(ss);
     }
     write_int(ss, w3e.map_width_plus_one);
     write_int(ss, w3e.map_height_plus_one);

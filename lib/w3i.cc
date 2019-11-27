@@ -66,7 +66,7 @@ w3i_type w3i_to_struct(std::string contents) {
     w3i.fog.color.blue = read_byte(&ss);
     w3i.fog.color.alpha = read_byte(&ss);
 
-    w3i.global_weather_id = read_chars(&ss, 4);
+    w3i.global_weather_id = warcraft_id(&ss);
     w3i.custom_sound_environment = read_string(&ss);
     w3i.tileset_id_of_custom_light_environment = read_char(&ss);
     w3i.custom_water_tinting.red = read_byte(&ss);
@@ -126,7 +126,7 @@ w3i_type w3i_to_struct(std::string contents) {
         for (int j = 0; j < 32; j++) {
             w3i.upgrade_availabilities[i].applies_to_player[j] = (bool)((player_mask >> j) & 1);
         }
-        w3i.upgrade_availabilities[i].id = read_chars(&ss, 4);
+        w3i.upgrade_availabilities[i].id = warcraft_id(&ss);
         w3i.upgrade_availabilities[i].level_minus_one_of_the_upgrade_for_which_the_availability_is_changed = read_int(&ss);
         
         int availability = read_int(&ss);
@@ -153,7 +153,7 @@ w3i_type w3i_to_struct(std::string contents) {
             w3i.tech_availabilities[i].applies_to_player[j] = (bool)((player_mask >> j) & 1);
         }
 
-        w3i.tech_availabilities[i].id = read_chars(&ss, 4);
+        w3i.tech_availabilities[i].id = warcraft_id(&ss);
     }
 
     w3i.n_random_unit_tables = read_int(&ss);
@@ -183,9 +183,9 @@ w3i_type w3i_to_struct(std::string contents) {
             }
             for (int k = 0; k < w3i.random_unit_tables[i].random_groups[j].n_widgets; k++) {
                 w3i.random_unit_tables[i].random_groups[j].random_widgets[k].chance = read_int(&ss);
-                w3i.random_unit_tables[i].random_groups[j].random_widgets[k].ids.resize(w3i.random_unit_tables[i].random_groups[j].n_positions);
+                w3i.random_unit_tables[i].random_groups[j].random_widgets[k].id.resize(w3i.random_unit_tables[i].random_groups[j].n_positions);
                 for (int l = 0; l < w3i.random_unit_tables[i].random_groups[j].n_positions; l++) {
-                    w3i.random_unit_tables[i].random_groups[j].random_widgets[k].ids[l] = read_chars(&ss, 4);
+                    w3i.random_unit_tables[i].random_groups[j].random_widgets[k].id[l] = warcraft_id(&ss);
                 }
             }
         }
@@ -215,7 +215,7 @@ w3i_type w3i_to_struct(std::string contents) {
                 }
                 for (int l = 0; l < w3i.random_item_table_sets[i].random_item_tables[j].item_sets[k].n_items; l++) {
                     w3i.random_item_table_sets[i].random_item_tables[j].item_sets[k].items[l].percentual_chance = read_int(&ss);
-                    w3i.random_item_table_sets[i].random_item_tables[j].item_sets[k].items[l].id = read_chars(&ss, 4);
+                    w3i.random_item_table_sets[i].random_item_tables[j].item_sets[k].items[l].id = warcraft_id(&ss);
                 }
             }
         }
@@ -224,7 +224,7 @@ w3i_type w3i_to_struct(std::string contents) {
     w3i.unknown = read_byte(&ss);
 
     if (!ss.eof()) {
-        throw DataStillExistsException("war3map.w3i");
+        throw data_still_exists("war3map.w3i");
     }
 
     return w3i;

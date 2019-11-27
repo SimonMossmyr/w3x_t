@@ -9,11 +9,11 @@
 #define ECA_CONDITION 1
 #define ECA_ACTION 2
 
-struct ECANotDefinedException : public std::exception {
+struct eca_not_defined : public std::exception {
     private:
         std::string message;
     public:
-        ECANotDefinedException(std::string eca_name) {
+        eca_not_defined(std::string eca_name) {
             message = "ECA function \"" + eca_name + "\" in war3map.wtg could not be found in TriggerData.txt.";
         }
         const char* what() const throw () {
@@ -64,7 +64,7 @@ int find_n_parameters(std::string name, trigger_data_type trigger_data) {
         }
     }
     else {
-        throw ECANotDefinedException(name);
+        throw eca_not_defined(name);
     }
 
     return n_parameters;
@@ -135,7 +135,7 @@ wtg_type wtg_to_struct(std::string content, trigger_data_type trigger_data) {
     std::stringstream ss(content);
     wtg_type wtg;
 
-    wtg.file_id = read_chars(&ss, 4);
+    wtg.file_id = warcraft_id(&ss);
     wtg.format_version = read_int(&ss);
     
     wtg.n_trigger_categories = read_int(&ss);
@@ -178,7 +178,7 @@ wtg_type wtg_to_struct(std::string content, trigger_data_type trigger_data) {
     wtg.unknown_2 = read_byte(&ss);
 
     if (!ss.eof()) {
-        throw DataStillExistsException("war3map.wtg");
+        throw data_still_exists("war3map.wtg");
     }
 
     return wtg;

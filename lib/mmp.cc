@@ -20,7 +20,7 @@ mmp_type mmp_to_struct(std::string contents) {
     mmp.unknown_2 = read_byte(&ss);
 
     if (!ss.eof()) {
-        throw DataStillExistsException("war3map.mmp");
+        throw data_still_exists("war3map.mmp");
     }
 
     return mmp;
