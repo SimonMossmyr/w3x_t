@@ -23,7 +23,7 @@ units_doo_type units_doo_to_struct(std::string contents) {
 
         udoo.units[i].unknown_1 = read_byte(&ss);
 
-        udoo.units[i].owning_player = read_int(&ss);
+        udoo.units[i].owning_player = player_number(&ss);
         udoo.units[i].unknown_2 = read_short(&ss);
         udoo.units[i].hit_points = read_int(&ss);
         udoo.units[i].mana_points = read_int(&ss);

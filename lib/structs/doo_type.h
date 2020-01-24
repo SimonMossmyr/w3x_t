@@ -4,7 +4,7 @@ struct w3do_type {
     int format_sub_version;
     int n_doodads;
     struct doodad_type {
-        std::string type_id;
+        warcraft_id type_id;
         int variation;
         position_type position;
         float rotation_angle;

@@ -84,3 +84,4 @@ wct_type            wct_to_struct           (std::string contents);
 imp_type            imp_to_struct           (std::string contents);
 
 std::string struct_to_w3e(w3e_type w3e);
+std::string struct_to_shd(shd_type shd);

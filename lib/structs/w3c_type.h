@@ -5,7 +5,7 @@ struct w3c_type {
         float target_x;
         float target_y;
         float z_offset;
-        float rotation_angle;
+        float rotation_angle; // TODO: type cast
         float angle_of_attack;
         float distance;
         float roll;

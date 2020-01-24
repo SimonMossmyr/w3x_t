@@ -12,10 +12,7 @@ doo_type doo_to_struct(std::string contents) {
 
     doo.doodads.doodads.resize(doo.doodads.n_doodads);
     for (int i = 0; i < doo.doodads.n_doodads; i++) {
-        char type_id[5];
-        ss.read(type_id, 4);
-        type_id[4] = '\0';
-        doo.doodads.doodads[i].type_id = std::string(type_id);
+        doo.doodads.doodads[i].type_id = warcraft_id(&ss);
 
         doo.doodads.doodads[i].variation = read_int(&ss);
         doo.doodads.doodads[i].position.x = read_float(&ss);
@@ -61,10 +58,7 @@ doo_type doo_to_struct(std::string contents) {
 
     doo.trees.doodads.resize(doo.trees.n_doodads);
     for (int i = 0; i < doo.trees.n_doodads; i++) {
-        char type_id[5];
-        ss.read(type_id, 4);
-        type_id[4] = '\0';
-        doo.trees.doodads[i].type_id = std::string(type_id);
+        doo.trees.doodads[i].type_id = warcraft_id(&ss);
 
         doo.trees.doodads[i].variation = read_int(&ss);
         doo.trees.doodads[i].position.x = read_float(&ss);

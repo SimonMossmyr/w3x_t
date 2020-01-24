@@ -8,7 +8,7 @@ mmp_type mmp_to_struct(std::string contents) {
     mmp.n_icons = read_int(&ss);
     mmp.icons.resize(mmp.n_icons);
     for (int i = 0; i < mmp.n_icons; i++) {
-        mmp.icons[i].type = read_int(&ss);
+        mmp.icons[i].type = icon(&ss);
         mmp.icons[i].x = read_int(&ss);
         mmp.icons[i].y = read_int(&ss);
         mmp.icons[i].color.red = read_byte(&ss);

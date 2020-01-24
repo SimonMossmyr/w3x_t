@@ -129,7 +129,7 @@ int main(int argc, char* argv[])
 
         for (int i = 0; i < s1.length(); i++) {
             if (s1.c_str()[i] != s2.c_str()[i]) {
-                std::cout << "diff at col " << i + 1 << std::endl;
+                std::cout << "w3e diff at col " << i + 1 << std::endl;
                 std::cout << "s1[i] = " << s1.c_str()[i] << std::endl;
                 std::cout << "s2[i] = " << s2.c_str()[i] << std::endl;
                 exit(1);
@@ -141,7 +141,25 @@ int main(int argc, char* argv[])
     }
 
     try {
-        shd = shd_to_struct(get_contents_from_mpq_file(hMpq, "war3map.shd"), map_width, map_height);
+        std::string file_contents = get_contents_from_mpq_file(hMpq, "war3map.shd");
+
+        shd = shd_to_struct(file_contents, map_width, map_height);
+
+        std::string contents = struct_to_shd(shd);
+
+        std::string s1 = str_to_hex(file_contents);
+        //std::cout << s1 << std::endl; exit(1);
+        std::string s2 = str_to_hex(contents);
+        //std::cout << s2 << std::endl; exit(1);
+
+        for (int i = 0; i < s1.length(); i++) {
+            if (s1.c_str()[i] != s2.c_str()[i]) {
+                std::cout << "shd diff at col " << i + 1 << std::endl;
+                std::cout << "s1[i] = " << s1.c_str()[i] << std::endl;
+                std::cout << "s2[i] = " << s2.c_str()[i] << std::endl;
+                exit(1);
+            }
+        }
     }
     catch (std::exception& s) {
         warning(s.what());

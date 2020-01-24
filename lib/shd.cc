@@ -2,6 +2,8 @@
 
 shd_type shd_to_struct(std::string contents, int map_width, int map_height) {
 
+    std::cout << str_to_hex(contents) << std::endl;
+
     std::stringstream ss(contents);
     shd_type shd;
 
@@ -18,4 +20,23 @@ shd_type shd_to_struct(std::string contents, int map_width, int map_height) {
     }
 
     return shd;
+}
+
+std::string struct_to_shd(shd_type shd) {
+    std::stringstream ss;
+
+    for (int i = 0; i < shd.shadow.size(); i++) {
+        if (shd.shadow[i])
+        {
+            write_byte(ss, 0xf);
+        }
+        else
+        {
+            write_byte(ss, 0);
+        }
+    }
+
+    std::cout << str_to_hex(ss.str()) << std::endl;
+
+    return ss.str();
 }
