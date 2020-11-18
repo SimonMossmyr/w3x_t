@@ -123,7 +123,7 @@ int main(int argc, char* argv[])
         std::string contents = struct_to_w3e(w3e);
 
         std::string s1 = str_to_hex(file_contents);
-        //std::cout << s1 << std::endl; exit(1);
+        std::cout << s1 << std::endl; exit(1);
         std::string s2 = str_to_hex(contents);
         //std::cout << s2 << std::endl; exit(1);
 
