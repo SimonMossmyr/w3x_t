@@ -26,15 +26,9 @@ set(SRC_FILES
     src/utils.cc
 )
 
-add_executable(w3x_t
-    src/main.cc
-    "${SRC_FILES}"
-    "${LIB_FILES}"
-)
-
-target_include_directories(w3x_t PUBLIC
-    "${PROJECT_BINARY_DIR}"
-)
+add_executable(w3x_t src/main.cc "${SRC_FILES}" "${LIB_FILES}")
+target_compile_options(w3x_t PRIVATE -Wall -pedantic -Og)
+target_include_directories(w3x_t PUBLIC "${PROJECT_BINARY_DIR}")
 
 target_link_libraries(w3x_t
     storm

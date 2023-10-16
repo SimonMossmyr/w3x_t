@@ -4,15 +4,20 @@ W3X is a file format used by WarCraft III. The file format consists of a header 
 
 This library can interpret the various (raw binary) files in the MPQ Archive as easily digestible data structures. It's meant to be used together with [StormLib](https://github.com/ladislav-zezula/StormLib), but is decoupled from it.
 
-## Installation
+## Build
 
-Instructions for installing the library will come when there's a first release.
+Instructions for building the library will come when there's a first release.
 
 Instructions for the testing environment is as follows.
 
-1.  Install [StormLib](https://github.com/ladislav-zezula/StormLib),
-2.  Install [CascLib](https://github.com/ladislav-zezula/CascLib),
-3.  Clone this repository and build with CMake.
+1. Install [StormLib](https://github.com/ladislav-zezula/StormLib),
+2. Install [CascLib](https://github.com/ladislav-zezula/CascLib),
+3. `sudo apt install libbz2-dev` 
+4. Clone this repository and build with CMake:
+    ```c++
+    $ cmake -S . -B cmake-build-debug
+    $ cmake --build cmake-build-debug/
+    ```
 
 ## Example Usage
 
